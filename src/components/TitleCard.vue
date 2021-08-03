@@ -1,24 +1,24 @@
 <template>
   <div id="container">
     <div id="icons">
-      <a href=https://github.com/natetheneet>
-        <img src="../assets/github.png" />
+      <a href="https://github.com/natetheneet">
+        <img src="../assets/github.png">
       </a>
 
-      <a href=https://twitter.com/latencygirl>
-        <img src="../assets/twitter.png" />
+      <a href="https://twitter.com/latencygirl">
+        <img src="../assets/twitter.png">
       </a>
 
-      <a href=https://www.instagram.com/natetheneet/>
-        <img src="../assets/instagram.png" />
+      <a href="https://www.instagram.com/natetheneet/">
+        <img src="../assets/instagram.png">
       </a>
 
-      <a href=https://www.linkedin.com/in/nathan-chay-709a8719a/>
-        <img src="../assets/linkedin.png" />
+      <a href="https://www.linkedin.com/in/nathan-chay-709a8719a/">
+        <img src="../assets/linkedin.png">
       </a>
 
-      <a href=https://natetheneet.tumblr.com/>
-        <img src="../assets/tumblr.png" />
+      <a href="https://natetheneet.tumblr.com/">
+        <img src="../assets/tumblr.png">
       </a>
     </div>
 
