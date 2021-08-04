@@ -1,14 +1,17 @@
 <template>
+  <Title />
   <TitleCard />
 </template>
 
 <script>
 import TitleCard from './components/TitleCard.vue';
+import Title from './components/Title.vue';
 
 export default {
   name: 'App',
   components: {
     TitleCard,
+    Title,
   },
 };
 </script>
@@ -26,7 +29,6 @@ export default {
     background-color: rgb(40, 40, 40);
     display: flex;
     height: 100%;
-    justify-content: center;
     align-items: center;
     flex-direction: column;
     font-family: Inconsolata, Avenir, Helvetica, Arial, sans-serif;
