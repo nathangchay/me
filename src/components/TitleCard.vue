@@ -28,8 +28,27 @@
     </div>
 
     <div id="title-container">
-      <span class="title">natetheneet</span> <br> <br>
-      <span class="subtitle">software engineer</span>
+      <img
+        id="card-image"
+        src="../assets/me.png"
+        align="right"
+      >
+      <h1 class="title">
+        nate
+      </h1>
+      <h3 class="subtitle">
+        engineer &amp; archivist
+      </h3>
+      <p class="about">
+        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas
+        scelerisque euismod pharetra. Quisque sollicitudin mi vel odio
+        tincidunt, nec bibendum risus eleifend. Maecenas elit justo,
+        molestie at mauris ut, pulvinar ultricies nibh. Quisque ut dictum
+        neque. Mauris rhoncus arcu ut aliquet suscipit. Nunc fermentum
+        eleifend dui, sed convallis libero venenatis nec. Suspendisse ac
+        risus euismod risus ultrices consequat in eget sem. Nam cursus sem
+        nibh, id aliquam neque hendrerit a.
+      </p>
     </div>
   </div>
 </template>
@@ -43,6 +62,7 @@ export default {
 <style scoped>
 #container {
   position: relative;
+  max-width: 30%;
   display: flex;
   flex-direction: row;
   padding: 30px;
@@ -52,7 +72,7 @@ export default {
 }
 
 #title-container {
-  align-self: center;
+  align-self: flex-start;
   flex: 1;
   justify-self: flex-end;
 }
@@ -65,13 +85,20 @@ export default {
   margin-right: 30px;
 }
 
-.title {
-  font-weight: bold;
-  font-size: 25pt;
+#card-image {
+  width: 150px;
+  height: 150px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+  margin: 25px;
+  border-radius: 30px;
+  border: rgb(50, 50, 50) 15px solid;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
 }
 
-.subtitle {
-  font-size: 14pt;
+.about {
+  font-size: 12pt;
+  flex-wrap: wrap;
 }
 
 #icons a {
