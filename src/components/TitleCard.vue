@@ -37,7 +37,7 @@
         nate
       </h1>
       <h3 class="subtitle">
-        engineer &amp; archivist
+        engineer &amp; hobbyist
       </h3>
       <p class="about">
         Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas

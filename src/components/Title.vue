@@ -11,13 +11,23 @@ export default {
   name: 'Title',
   data: () => ({
     finalText: 'nate world',
-    curText: 'a',
+    curText: ' ',
   }),
   mounted() {
-    for (var i = 0; i < finalText.length; i++) {
-      setTimeout(() => {
-        this.curText += finalText.charAt(i);
-      }, 200)
+    this.animateIn();
+  },
+  methods: {
+    animateIn() {
+      let i = 0;
+
+      var anim = setInterval(() => {
+        this.curText += this.finalText.charAt(i);
+        i++;
+
+        if (i >= this.finalText.length) {
+          clearInterval(anim);
+        }
+      }, 50);
     }
   },
 };
