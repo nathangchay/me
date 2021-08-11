@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <div id="container">
     <p id="title">
       {{ curText }}
     </p>
@@ -11,12 +11,27 @@ export default {
   name: 'Title',
   data: () => ({
     finalText: 'nate world',
-    curText: ' ',
+    curText: ' ',
   }),
   mounted() {
     this.animateIn();
   },
   methods: {
+    animateOut() {
+      var underscoreShowing = false;
+      this.curText += ' ';
+
+      setInterval(() => {
+        if (underscoreShowing) {
+          this.curText = this.curText.replace(/.$/," ");
+          underscoreShowing = false;
+        } else {
+          this.curText = this.curText.replace(/.$/,"_");
+          underscoreShowing = true;
+        }
+      }, 600);
+    },
+
     animateIn() {
       let i = 0;
 
@@ -25,9 +40,10 @@ export default {
         i++;
 
         if (i >= this.finalText.length) {
+          this.animateOut();
           clearInterval(anim);
         }
-      }, 50);
+      }, 75);
     }
   },
 };

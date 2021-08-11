@@ -1,5 +1,10 @@
 <template>
-  <div id="container">
+  <div
+    id="container"
+    ref="card"
+    @mousemove="mouseMove"
+    @mouseleave="mouseLeave"
+  >
     <div id="icons">
       <a href="https://github.com/natetheneet">
         <img src="../assets/github.png">
@@ -56,6 +61,21 @@
 <script>
 export default {
   name: 'TitleCard',
+  methods: {
+    mouseLeave() {
+      this.$refs.card.style.transform = `perspective(500px) scale(1)`;
+    },
+
+    mouseMove() {
+      const card = this.$refs.card;
+
+      const relX = (offsetX + 1) / card.offsetWidth;
+      const relY = (offsetY + 1) / card.offsetHeight;
+      const rotY = `rotateY(${(relX - 0.5) * 5}deg)`;
+      const rotX = `rotateX(${(relY - 0.5) * -5}deg)`;
+      card.style.transform = `perspective(300px) scale(1) ${rotY} ${rotX}`;
+    }
+  }
 };
 </script>
 
@@ -69,6 +89,7 @@ export default {
   background-color: rgb(30, 30, 30);
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-radius: 10px;
+  transform: perspective(800px);
 }
 
 #title-container {
