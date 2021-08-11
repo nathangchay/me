@@ -17,7 +17,7 @@ export default {
 </script>
 
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=Inconsolata&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
 
   html, body {
     height: 100%;
@@ -31,7 +31,7 @@ export default {
     height: 100%;
     align-items: center;
     flex-direction: column;
-    font-family: Inconsolata, Avenir, Helvetica, Arial, sans-serif;
+    font-family: Rubik, Avenir, Helvetica, Arial, sans-serif;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
     text-align: center;
