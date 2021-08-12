@@ -1,8 +1,11 @@
 <template>
   <div id="container">
-    <p id="title">
+    <div id="title">
       {{ curText }}
-    </p>
+    </div>
+    <div id="underscore">
+      {{ underscore }}
+    </div>
   </div>
 </template>
 
@@ -12,38 +15,31 @@ export default {
   data: () => ({
     finalText: 'nate world',
     curText: ' ',
+    underscore: '_',
   }),
   mounted() {
     this.animateIn();
   },
   methods: {
-    animateOut() {
-      var underscoreShowing = false;
-      this.curText += ' ';
-
-      setInterval(() => {
-        if (underscoreShowing) {
-          this.curText = this.curText.replace(/.$/," ");
-          underscoreShowing = false;
-        } else {
-          this.curText = this.curText.replace(/.$/,"_");
-          underscoreShowing = true;
-        }
-      }, 600);
-    },
-
     animateIn() {
       let i = 0;
 
-      var anim = setInterval(() => {
+      var textAnim = setInterval(() => {
         this.curText += this.finalText.charAt(i);
         i++;
 
         if (i >= this.finalText.length) {
-          this.animateOut();
-          clearInterval(anim);
+          clearInterval(textAnim);
         }
       }, 75);
+
+      setInterval(() => {
+        if (this.underscore == '_') {
+          this.underscore = '';
+        } else {
+          this.underscore = '_';
+        }
+      }, 500);
     }
   },
 };
@@ -52,7 +48,19 @@ export default {
 </script>
 
 <style scoped>
+  #container {
+    min-width: 30%;
+    display: flex;
+    flex-direction: row;
+    margin: 50px;
+  }
+
   #title {
+    font-size: 60pt;
+    font-weight: bold;
+  }
+
+  #underscore {
     font-size: 60pt;
     font-weight: bold;
   }
