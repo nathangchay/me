@@ -54,6 +54,9 @@
 </template>
 
 <script>
+/**
+ * Info card with name, description, photo, and social media links.
+ */
 export default {
   name: 'TitleCard',
 };
@@ -62,7 +65,7 @@ export default {
 <style scoped>
 #container {
   position: relative;
-  max-width: 30%;
+  width: 600px;
   display: flex;
   flex-direction: row;
   padding: 30px;
