@@ -11,7 +11,20 @@
     </router-link>
   </div>
   <router-view />
+
+  <SocialIcons />
 </template>
+
+<script>
+import SocialIcons from './components/SocialIcons.vue';
+
+export default {
+  components: {
+    SocialIcons,
+  }
+}
+</script>
+
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
