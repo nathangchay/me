@@ -15,7 +15,7 @@ export default {
   name: 'Title',
 
   data: () => ({
-    finalText: ['nate world'],
+    finalText: ['hi! i\'m nate'],
     curText: ' ',
     underscore: '_',
   }),
@@ -82,6 +82,7 @@ export default {
 
 <style scoped>
   #title {
+    align-self: center;
     height: 10%;
     position: relative;
     font-size: 60pt;
