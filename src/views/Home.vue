@@ -1,6 +1,5 @@
 <template>
   <Title />
-  <TitleCard />
 </template>
 
 <script>
@@ -10,7 +9,6 @@ import Title from '../components/Title.vue';
 export default {
   name: 'Home',
   components: {
-    TitleCard,
     Title,
   },
 };
