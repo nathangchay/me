@@ -36,7 +36,7 @@ export default {
 <style scoped>
 #icons {
   position: fixed;
-  top: 30px;
+  top: 50px;
   left: 30px;
   width: 40px;
   display: flex;
