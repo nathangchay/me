@@ -15,13 +15,13 @@ export default {
   name: 'Title',
 
   data: () => ({
-    finalText: ['hi! i\'m nate'],
+    finalText: ['hi! i\'m nate', 'welcome to my page :-)'],
     curText: ' ',
     underscore: '_',
   }),
 
   mounted() {
-    this.animateText(0, false);
+    this.animateText(0, true);
     this.animateUnderscore();
   },
 
@@ -61,7 +61,7 @@ export default {
             }, 2000);
           }
         }
-      }, 80);
+      }, 60);
     },
 
     /**
@@ -82,7 +82,7 @@ export default {
 
 <style scoped>
   #title {
-    align-self: center;
+    justify-self: flex-end;
     height: 10%;
     position: relative;
     font-size: 60pt;
