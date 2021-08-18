@@ -1,28 +1,19 @@
 <template>
   <div id="nav">
     <router-link to="/">
-      Home
+      home
     </router-link> -
     <router-link to="/projects">
-      Projects
+      projects
     </router-link> -
     <router-link to="/contact">
-      Contact
+      contact
     </router-link>
   </div>
   <router-view />
-
-  <SocialIcons />
 </template>
 
 <script>
-import SocialIcons from './components/SocialIcons.vue';
-
-export default {
-  components: {
-    SocialIcons,
-  }
-}
 </script>
 
 
