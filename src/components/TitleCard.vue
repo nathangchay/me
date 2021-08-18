@@ -1,32 +1,5 @@
 <template>
   <div id="container">
-    <div id="icons">
-      <a href="https://github.com/natetheneet">
-        <img src="../assets/github.png">
-        <span>github</span>
-      </a>
-
-      <a href="https://twitter.com/latencygirl">
-        <img src="../assets/twitter.png">
-        <span>twitter</span>
-      </a>
-
-      <a href="https://www.instagram.com/natetheneet/">
-        <img src="../assets/instagram.png">
-        <span>instagram</span>
-      </a>
-
-      <a href="https://www.linkedin.com/in/nathan-chay-709a8719a/">
-        <img src="../assets/linkedin.png">
-        <span>linkedin</span>
-      </a>
-
-      <a href="https://natetheneet.tumblr.com/">
-        <img src="../assets/tumblr.png">
-        <span>tumblr</span>
-      </a>
-    </div>
-
     <div id="title-container">
       <img
         id="card-image"

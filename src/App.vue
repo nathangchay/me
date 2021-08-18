@@ -1,17 +1,21 @@
 <template>
   <div id="nav">
     <router-link to="/">
-      Home
+      home
     </router-link> -
     <router-link to="/projects">
-      Projects
+      projects
     </router-link> -
     <router-link to="/contact">
-      Contact
+      contact
     </router-link>
   </div>
   <router-view />
 </template>
+
+<script>
+</script>
+
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
