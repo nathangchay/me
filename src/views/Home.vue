@@ -3,7 +3,6 @@
 </template>
 
 <script>
-import TitleCard from '../components/TitleCard.vue';
 import Title from '../components/Title.vue';
 
 export default {
