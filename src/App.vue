@@ -11,14 +11,25 @@
     </router-link>
   </div>
   <router-view />
+
+  <ColorButton />
 </template>
 
 <script>
+import ColorButton from './components/ColorButton.vue';
+
+export default {
+  name: 'App',
+  components: {
+    ColorButton,
+  }
+}
 </script>
 
 
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Rubik&display=swap');
+@import './assets/styles/colors.css';
 
 html, body {
   height: 100%;
@@ -27,7 +38,7 @@ html, body {
 }
 
 #app {
-  background-color: rgb(40, 40, 40);
+  background-color: var(--background);
   display: flex;
   height: 100%;
   align-items: center;
@@ -36,7 +47,8 @@ html, body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
-  color: #fff;
+  color: var(--text);
+  transition: background-color 300ms ease-in-out, color 300ms ease-in-out;
 }
 
 #nav {
@@ -46,11 +58,13 @@ html, body {
 #nav a {
   font-weight: bold;
   text-decoration: none;
-  color: rgb(150, 150, 150);
+  color: var(--text);
+  transition: color 300ms ease-in-out;
 }
 
 #nav a.router-link-exact-active {
-  color: white;
+  color: var(--accent2);
   text-decoration: none;
+  transition: color 300ms ease-in-out;
 }
 </style>
