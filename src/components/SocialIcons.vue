@@ -5,24 +5,9 @@
       <span>github</span>
     </a>
 
-    <a href="https://twitter.com/latencygirl">
-      <img src="../assets/twitter.png">
-      <span>twitter</span>
-    </a>
-
-    <a href="https://www.instagram.com/natetheneet/">
-      <img src="../assets/instagram.png">
-      <span>instagram</span>
-    </a>
-
     <a href="https://www.linkedin.com/in/nathan-chay-709a8719a/">
       <img src="../assets/linkedin.png">
       <span>linkedin</span>
-    </a>
-
-    <a href="https://natetheneet.tumblr.com/">
-      <img src="../assets/tumblr.png">
-      <span>tumblr</span>
     </a>
   </div>
 </template>
@@ -36,7 +21,7 @@ export default {
 <style scoped>
 #icons {
   position: fixed;
-  top: 50px;
+  top: 30px;
   left: 30px;
   width: 40px;
   display: flex;
