@@ -25,10 +25,12 @@ export default {
 
 <style scoped>
   #button {
+    width: 100px;
     text-decoration: none;
     color: var(--text);
     background-color: var(--container);
     padding: 15px;
+    margin: 10px;
     border-radius: 15px;
     border: solid transparent 2px;
     cursor: pointer;
