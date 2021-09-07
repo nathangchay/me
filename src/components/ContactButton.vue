@@ -30,7 +30,7 @@ export default {
     color: var(--text);
     background-color: var(--container);
     padding: 15px;
-    margin: 10px;
+    margin: 5px;
     border-radius: 15px;
     border: solid transparent 2px;
     cursor: pointer;
