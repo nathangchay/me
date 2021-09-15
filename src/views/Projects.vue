@@ -3,16 +3,14 @@
     <h1>featured projects</h1>
     <div id="row">
       <FeaturedProjectTile
-        title="project1"
-        subtitle="a sample project"
-        desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
+        title="osu! thing"
+        desc="osu! tool that compares map scores from previous rounds between your team and an opponent"
         lang="vue, css"
         date="aug. 2021"
-        link="https://github.com/natetheneet/arduino-spotify-controller"
+        link="/projects/osuteamcompare"
       />
       <FeaturedProjectTile
         title="project1"
-        subtitle="a sample project"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
@@ -23,7 +21,6 @@
     <div id="row">
       <ProjectTile
         title="project1"
-        subtitle="a sample project"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
@@ -31,7 +28,6 @@
       />
       <ProjectTile
         title="project1"
-        subtitle="a sample project"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
@@ -39,7 +35,6 @@
       />
       <ProjectTile
         title="project1"
-        subtitle="a sample project"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"

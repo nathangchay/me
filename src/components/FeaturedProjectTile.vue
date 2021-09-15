@@ -1,26 +1,23 @@
 <template>
-  <a
+  <router-link
     id="container"
-    :href="link"
+    :to="link"
   >
     <div id="title">
       {{ title }}
     </div>
-    <div id="subtitle">
-      {{ subtitle }}
-    </div>
     <div id="description">
       {{ desc }}
     </div>
-    <div id="row">
+    <div id="info">
       <div id="container-inner">
-        {{ lang }}
+        <i>made with <b>{{ lang }}</b></i>
       </div>
       <div id="container-inner">
-        {{ date }}
+        <i>in <b>{{ date }}</b></i>
       </div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>
@@ -28,10 +25,6 @@ export default {
   name: "FeaturedProjectTile",
   props: {
     title: {
-      type: String,
-      default: '',
-    },
-    subtitle: {
       type: String,
       default: '',
     },
@@ -63,7 +56,7 @@ export default {
     background-color: var(--container);
     display: flex;
     flex-direction: column;
-    width: 300px;
+    width: 350px;
     padding: 30px;
     margin: 10px;
     border-radius: 20px;
@@ -83,13 +76,15 @@ export default {
   }
 
   #container-inner {
-    width: 35%;
-    background-color: var(--accent1);
-    margin-top: 25px;
-    padding: 10px;
-    border-radius: 10px;
-    transition: background-color 300ms ease-in-out;
-    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    color: var(--accent2);
+    margin-top: 5px;
+    transition: color 300ms ease-in-out;
+    text-align: right;
+  }
+
+  #info {
+    margin-top: auto;
+    align-self: flex-end;
   }
 
   #top {
@@ -100,18 +95,19 @@ export default {
   #subtitle {
     align-self: flex-start;
     font-style: italic;
-    margin-top: 15px;
+    margin-top: 4px;
     font-size: 13pt;
   }
 
   #title {
-    align-self: flex-start;
+    text-align: left;
     font-weight: bold;
     font-size: 25pt;
   }
 
   #description {
     margin-top: 20px;
+    margin-bottom: 20px;
     text-align: left;
   }
 </style>

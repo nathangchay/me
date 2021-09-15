@@ -1,7 +1,8 @@
-import { createRouter, createWebHashHistory } from 'vue-router'
+import { createRouter, createWebHistory } from 'vue-router'
 import Home from '../views/Home.vue'
 import Projects from '../views/Projects.vue'
 import Contact from '../views/Contact.vue'
+import OsuTeamCompare from '../views/OsuTeamCompare.vue';
 
 const routes = [
   {
@@ -19,10 +20,15 @@ const routes = [
     name: 'Contact',
     component: Contact
   },
+  {
+    path: '/projects/osuteamcompare',
+    name: 'osu! Team Compare',
+    component: OsuTeamCompare,
+  },
 ]
 
 const router = createRouter({
-  history: createWebHashHistory(),
+  history: createWebHistory(),
   routes
 })
 

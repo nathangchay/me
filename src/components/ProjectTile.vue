@@ -6,18 +6,15 @@
     <div id="title">
       {{ title }}
     </div>
-    <div id="subtitle">
-      {{ subtitle }}
-    </div>
     <div id="description">
       {{ desc }}
     </div>
-    <div id="row">
+    <div id="info">
       <div id="container-inner">
-        {{ lang }}
+        <i>made with <b>{{ lang }}</b></i>
       </div>
       <div id="container-inner">
-        {{ date }}
+        <i>in <b>{{ date }}</b></i>
       </div>
     </div>
   </a>
@@ -28,10 +25,6 @@ export default {
   name: "ProjectTile",
   props: {
     title: {
-      type: String,
-      default: '',
-    },
-    subtitle: {
       type: String,
       default: '',
     },
@@ -82,14 +75,16 @@ export default {
   }
 
   #container-inner {
-    width: 35%;
-    background-color: var(--accent1);
-    margin-top: 20px;
-    padding: 10px;
-    border-radius: 10px;
-    transition: background-color 300ms ease-in-out;
-    box-shadow: 0 2px 1px rgb(0 0 0 / 0.2);
+    color: var(--accent2);
     font-size: 8pt;
+    margin-top: 2px;
+    transition: color 300ms ease-in-out;
+    text-align: right;
+  }
+
+  #info {
+    margin-top: auto;
+    align-self: flex-end;
   }
 
   #top {
@@ -100,7 +95,7 @@ export default {
   #subtitle {
     align-self: flex-start;
     font-style: italic;
-    margin-top: 15px;
+    margin-top: 3px;
     font-size: 10pt;
   }
 
@@ -111,8 +106,9 @@ export default {
   }
 
   #description {
-    margin-top: 20px;
+    margin-top: 15px;
     font-size: 8pt;
     text-align: left;
+    margin-bottom: 10px;
   }
 </style>
