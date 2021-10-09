@@ -3,11 +3,11 @@
     <h1>featured projects</h1>
     <div id="row">
       <FeaturedProjectTile
-        title="osu! team compare"
-        desc="osu! tool that compares map scores from previous rounds between your team and an opponent"
+        title="project1"
+        desc="blahblahblah"
         lang="vue, css"
         date="aug. 2021"
-        link="/projects/osuteamcompare"
+        link="/me/projects/osuteamcompare"
       />
       <FeaturedProjectTile
         title="project1"
