@@ -1,12 +1,12 @@
 <template>
   <div id="nav">
-    <router-link to="/">
+    <router-link to="/me/">
       home
     </router-link> -
-    <router-link to="/projects">
+    <router-link to="/me/projects">
       projects
     </router-link> -
-    <router-link to="/contact">
+    <router-link to="/me/contact">
       contact
     </router-link>
   </div>

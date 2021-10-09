@@ -6,22 +6,22 @@ import OsuTeamCompare from '../views/OsuTeamCompare.vue';
 
 const routes = [
   {
-    path: '/',
+    path: '/me',
     name: 'Home',
     component: Home
   },
   {
-    path: '/projects',
+    path: '/me/projects',
     name: 'Projects',
     component: Projects
   },
   {
-    path: '/contact',
+    path: '/me/contact',
     name: 'Contact',
     component: Contact
   },
   {
-    path: '/projects/osuteamcompare',
+    path: '/me/projects/osuteamcompare',
     name: 'osu! Team Compare',
     component: OsuTeamCompare,
   },
