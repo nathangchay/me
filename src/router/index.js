@@ -1,8 +1,8 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../views/Home.vue'
-import Projects from '../views/Projects.vue'
-import Contact from '../views/Contact.vue'
-import OsuTeamCompare from '../views/OsuTeamCompare.vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import Home from '../views/Home.vue';
+import Projects from '../views/Projects.vue';
+import Contact from '../views/Contact.vue';
+import Mandelbrot from '../views/Mandelbrot.vue';
 
 const routes = [
   {
@@ -21,15 +21,15 @@ const routes = [
     component: Contact
   },
   {
-    path: '/me/projects/osuteamcompare',
-    name: 'osu! Team Compare',
-    component: OsuTeamCompare,
+    path: '/me/mandelbrot',
+    name: 'Mandelbrot',
+    component: Mandelbrot,
   },
 ]
 
 const router = createRouter({
   history: createWebHistory(),
   routes
-})
+});
 
-export default router
+export default router;

@@ -3,11 +3,11 @@
     <h1>featured projects</h1>
     <div id="row">
       <FeaturedProjectTile
-        title="project1"
-        desc="blahblahblah"
+        title="mandelbrot"
+        desc="draw a mandlebrot set"
         lang="vue, css"
         date="aug. 2021"
-        link="/me/projects/osuteamcompare"
+        link="/me/mandelbrot"
       />
       <FeaturedProjectTile
         title="project1"
