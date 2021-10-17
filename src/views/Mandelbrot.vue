@@ -14,6 +14,7 @@
       <vue-slider
         v-model="maxIter"
         :width="200"
+        :min="50"
         :max="200"
       />
     </div>
@@ -38,19 +39,26 @@ export default {
   },
   data() {
     return {
+      width: 550,
+      height: 550,
       maxIter: 80,
+      boundLeft: -2.0,
+      boundRight: 0.47,
+      boundDown: -1.12,
+      boundUp: 1.12,
     }
   },
   methods: {
     generateMandelbrot() {
-      const maxIter = this.maxIter;
       const width = 550;
       const height = 500;
 
-      const boundLeft = -2.0;
-      const boundRight = 0.47;
-      const boundDown = -1.12;
-      const boundUp = 1.12;
+      const maxIter = this.maxIter;
+
+      const boundLeft = this.boundLeft;
+      const boundRight = this.boundRight;
+      const boundDown = this.boundDown;
+      const boundUp = this.boundUp;
 
       let canvasContext = document.getElementById("canvas").getContext("2d");
       let xScaled, yScaled, x, y, iter, temp;
@@ -74,7 +82,7 @@ export default {
           if (iter == maxIter) {
             canvasContext.fillStyle = "rgb(0, 0, 0)";
           } else if (iter < (maxIter / 5)) {
-            canvasContext.fillStyle = "rgb(255, " + (iter / (maxIter / 6)) * 255 + ", 0)";
+            canvasContext.fillStyle = "rgb(255, " + (iter / (maxIter / 5)) * 255 + ", 0)";
           } else {
             canvasContext.fillStyle = "rgb(255, 0, 0)";
           }

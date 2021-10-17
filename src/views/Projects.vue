@@ -3,42 +3,42 @@
     <h1>featured projects</h1>
     <div id="row">
       <FeaturedProjectTile
-        title="mandelbrot"
-        desc="draw a mandlebrot set"
+        title="project1"
+        desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
-        link="/me/mandelbrot"
+        link="/"
       />
       <FeaturedProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
-        link="https://github.com/natetheneet/arduino-spotify-controller"
+        link="/"
       />
     </div>
     <h2>other projects</h2>
     <div id="row">
       <ProjectTile
-        title="project1"
-        desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
+        title="mandelbrot"
+        desc="draw a mandlebrot set"
         lang="vue, css"
         date="aug. 2021"
-        link="https://github.com/natetheneet/arduino-spotify-controller"
+        link="/me/mandelbrot"
       />
       <ProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
-        link="https://github.com/natetheneet/arduino-spotify-controller"
+        link="/"
       />
       <ProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
         lang="vue, css"
         date="aug. 2021"
-        link="https://github.com/natetheneet/arduino-spotify-controller"
+        link="/"
       />
     </div>
   </div>

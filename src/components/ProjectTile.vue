@@ -1,7 +1,7 @@
 <template>
-  <a
+  <router-link
     id="container"
-    :href="link"
+    :to="link"
   >
     <div id="title">
       {{ title }}
@@ -17,7 +17,7 @@
         <i>in <b>{{ date }}</b></i>
       </div>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <script>

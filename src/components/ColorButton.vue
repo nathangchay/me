@@ -1,18 +1,28 @@
 <template>
   <div id="container">
-    <div
-      id="button"
-      @click="changeColor"
-    >
-      change color scheme
+    <div id="row">
+      <div
+        id="button"
+        @click="changeColor"
+      >
+        change color scheme
+      </div>
+      <div
+        id="button-small"
+        :style="{ visibility: defaultVisible ? 'visible' : 'hidden'}"
+        @click="defaultColor"
+      >
+        default
+      </div>
     </div>
-    <div
-      id="button-small"
+    
+    <a
+      id="button-info"
+      href="http://colormind.io/"
       :style="{ visibility: defaultVisible ? 'visible' : 'hidden'}"
-      @click="defaultColor"
     >
-      default
-    </div>
+      powered by colormind.io
+    </a>
   </div>
 </template>
 
@@ -96,6 +106,11 @@ export default {
   bottom: 30px;
   left: 30px;
   display: flex;
+  flex-direction: column-reverse;
+}
+
+#row {
+  display: flex;
   flex-direction: row;
 }
 
@@ -129,5 +144,14 @@ export default {
 
 #button-small:hover {
   border-color: var(--text)
+}
+
+#button-info {
+  margin-bottom: 10px;
+  font-size: 8pt;
+  text-decoration: none;
+  color: var(--text);
+  border-radius: 15px;
+  opacity: 0.5;
 }
 </style>
