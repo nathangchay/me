@@ -6,8 +6,9 @@
   <div id="container">
     <canvas
       id="canvas"
-      width="550"
-      height="500"
+      :width="canvasWidth"
+      :height="canvasHeight"
+      @click="onZoom"
     />
     <div id="options">
       max. iterations
@@ -15,7 +16,7 @@
         v-model="maxIter"
         :width="200"
         :min="50"
-        :max="200"
+        :max="10000"
       />
     </div>
   </div>
@@ -39,8 +40,8 @@ export default {
   },
   data() {
     return {
-      width: 550,
-      height: 550,
+      canvasWidth: 550,
+      canvasHeight: 500,
       maxIter: 80,
       boundLeft: -2.0,
       boundRight: 0.47,
@@ -49,9 +50,41 @@ export default {
     }
   },
   methods: {
+    onZoom(event) {
+      const zoomFactor = 2;
+
+      const width = this.canvasWidth;
+      const height = this.canvasHeight;
+
+      const boundLeft = this.boundLeft;
+      const boundRight = this.boundRight;
+      const boundDown = this.boundDown;
+      const boundUp = this.boundUp;
+
+      let canvas = document.getElementById("canvas");
+
+      let canvasLeft = canvas.offsetLeft + canvas.clientLeft;
+      let canvasTop = canvas.offsetTop + canvas.clientTop;
+      let mouseX = event.pageX - canvasLeft;
+      let mouseY = event.pageY - canvasTop
+
+      let newWidth = Math.abs(boundRight - boundLeft) / zoomFactor;
+      let newHeight = Math.abs(boundDown - boundUp) / zoomFactor;
+
+      let mouseXScaled = ((mouseX / (width - 1)) * (boundRight - boundLeft)) + boundLeft;
+      let mouseYScaled = ((mouseY / (height - 1)) * (boundUp - boundDown)) + boundDown;
+
+      this.boundLeft = mouseXScaled - (newWidth / 2);
+      this.boundRight = mouseXScaled + (newWidth / 2);
+      this.boundDown = mouseYScaled - (newHeight / 2);
+      this.boundUp = mouseYScaled + (newHeight / 2);
+
+      this.generateMandelbrot();
+    },
+
     generateMandelbrot() {
-      const width = 550;
-      const height = 500;
+      const width = this.canvasWidth;
+      const height = this.canvasHeight;
 
       const maxIter = this.maxIter;
 
@@ -60,7 +93,9 @@ export default {
       const boundDown = this.boundDown;
       const boundUp = this.boundUp;
 
-      let canvasContext = document.getElementById("canvas").getContext("2d");
+      let canvas = document.getElementById("canvas");
+      let canvasContext = canvas.getContext("2d");
+      
       let xScaled, yScaled, x, y, iter, temp;
 
       for (let xPixel = 0; xPixel < width; xPixel++) {
