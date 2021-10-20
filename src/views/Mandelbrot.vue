@@ -10,14 +10,16 @@
       :height="canvasHeight"
       @click="onZoom"
     />
-    <div id="options">
-      max. iterations
-      <vue-slider
-        v-model="maxIter"
-        :width="200"
-        :min="50"
-        :max="10000"
-      />
+    <div id="sidebar">
+      <div id="options">
+        max. iterations
+      </div>
+      <div id="info">
+        left bound: {{ boundLeft }} <br>
+        right bound: {{ boundRight }} <br>
+        upper bound: {{ boundUp }} <br>
+        lower bound: {{ boundDown }} <br>
+      </div>
     </div>
   </div>
 
@@ -35,9 +37,6 @@ import 'vue-slider-component/theme/antd.css'
 
 export default {
   name: 'Mandelbrot',
-  components: {
-    VueSlider,
-  },
   data() {
     return {
       canvasWidth: 550,
@@ -47,6 +46,24 @@ export default {
       boundRight: 0.47,
       boundDown: -1.12,
       boundUp: 1.12,
+      gradient: [
+        [66, 30, 15],
+        [25, 7, 26],
+        [9, 1, 47],
+        [4, 4, 73],
+        [0, 7, 100],
+        [12, 44, 138],
+        [24, 82, 177],
+        [57, 125, 209],
+        [134, 181, 229],
+        [211, 236, 248],
+        [241, 233, 191],
+        [248, 201, 95],
+        [255, 170, 0],
+        [204, 128, 0],
+        [153, 87, 0],
+        [106, 52, 3],
+      ],
     }
   },
   methods: {
@@ -93,10 +110,12 @@ export default {
       const boundDown = this.boundDown;
       const boundUp = this.boundUp;
 
+      const gradient = this.gradient;
+
       let canvas = document.getElementById("canvas");
       let canvasContext = canvas.getContext("2d");
       
-      let xScaled, yScaled, x, y, iter, temp;
+      let xScaled, yScaled, x, y, iter, temp, color;
 
       for (let xPixel = 0; xPixel < width; xPixel++) {
         for (let yPixel = 0; yPixel < height; yPixel++) {
@@ -117,7 +136,9 @@ export default {
           if (iter == maxIter) {
             canvasContext.fillStyle = "rgb(0, 0, 0)";
           } else {
-            canvasContext.fillStyle = "rgb(255, " + (iter / (maxIter / 6)) * 255 + ", 0)";
+            color = gradient[iter % gradient.length];
+
+            canvasContext.fillStyle = "rgb(" + color[0] + ", " + color[1] + ", " + color[2] + ")";
           }
 
           canvasContext.fillRect(xPixel, yPixel, 1, 1);
@@ -134,17 +155,19 @@ export default {
     display: flex;
     box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
     border-radius: 15px;
-    padding: 10px;
+    padding: 15px;
     margin-bottom: 15px;
   }
 
-  #options {
+  #sidebar {
     margin-left: 15px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
   }
 
   #canvas {
     background-color: white;
-    
     border-radius: 15px;
   }
 
@@ -160,5 +183,13 @@ export default {
 
   #button:hover {
     border-color: var(--text)
+  }
+
+  #info {
+    font-size: 7pt;
+    opacity: 0.5;
+    margin-top: auto;
+    align-self: flex-start;
+    text-align: left;
   }
 </style>
