@@ -116,10 +116,8 @@ export default {
 
           if (iter == maxIter) {
             canvasContext.fillStyle = "rgb(0, 0, 0)";
-          } else if (iter < (maxIter / 5)) {
-            canvasContext.fillStyle = "rgb(255, " + (iter / (maxIter / 5)) * 255 + ", 0)";
           } else {
-            canvasContext.fillStyle = "rgb(255, 0, 0)";
+            canvasContext.fillStyle = "rgb(255, " + (iter / (maxIter / 6)) * 255 + ", 0)";
           }
 
           canvasContext.fillRect(xPixel, yPixel, 1, 1);
