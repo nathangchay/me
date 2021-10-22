@@ -2,6 +2,9 @@
   <h1>
     mandlebrot set generator
   </h1>
+  <h5>
+    click anywhere to zoom in!
+  </h5>
 
   <div id="container">
     <canvas
@@ -12,7 +15,18 @@
     />
     <div id="sidebar">
       <div id="options">
-        max. iterations
+        <div id="options-item">
+          max. iterations: 
+          <input v-model="maxIter">
+        </div>
+        <div id="options-item">
+          zoom factor:
+          <input
+            v-model="zoomFactor"
+            style="margin-right: 5px"
+          >
+          x
+        </div>
       </div>
       <div id="info">
         left bound: {{ boundLeft }} <br>
@@ -27,21 +41,20 @@
     id="button"
     @click="generateMandelbrot"
   >
-    generate
+    {{ generateButtonText }}
   </div>
 </template>
 
 <script>
-import VueSlider from 'vue-slider-component';
-import 'vue-slider-component/theme/antd.css'
-
 export default {
   name: 'Mandelbrot',
   data() {
     return {
+      generateButtonText: "re-generate",
       canvasWidth: 550,
       canvasHeight: 500,
       maxIter: 80,
+      zoomFactor: 1.5,
       boundLeft: -2.0,
       boundRight: 0.47,
       boundDown: -1.12,
@@ -66,9 +79,12 @@ export default {
       ],
     }
   },
+  mounted() {
+    this.generateMandelbrot();
+  },
   methods: {
     onZoom(event) {
-      const zoomFactor = 2;
+      const zoomFactor = this.zoomFactor;
 
       const width = this.canvasWidth;
       const height = this.canvasHeight;
@@ -145,7 +161,7 @@ export default {
         }
       }
     }
-  }
+  },
 };
 </script>
 
@@ -191,5 +207,26 @@ export default {
     margin-top: auto;
     align-self: flex-start;
     text-align: left;
+  }
+
+  #options-item {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+
+  input {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: var(--accent1);
+    border: none;
+    border-radius: 15px;
+    width: 0px;
+    flex: 1;
+    padding: 5px 12px;
+    margin-left: 10px;
+    text-align: center;
   }
 </style>
