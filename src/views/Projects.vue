@@ -24,7 +24,7 @@
         desc="draw a mandlebrot set"
         lang="vue, css"
         date="aug. 2021"
-        link="/me/mandelbrot"
+        link="/mandelbrot"
       />
       <ProjectTile
         title="project1"

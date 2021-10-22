@@ -6,22 +6,22 @@ import Mandelbrot from '../views/Mandelbrot.vue';
 
 const routes = [
   {
-    path: '/me',
+    path: '/',
     name: 'Home',
     component: Home
   },
   {
-    path: '/me/projects',
+    path: '/projects',
     name: 'Projects',
     component: Projects
   },
   {
-    path: '/me/contact',
+    path: '/contact',
     name: 'Contact',
     component: Contact
   },
   {
-    path: '/me/mandelbrot',
+    path: '/mandelbrot',
     name: 'Mandelbrot',
     component: Mandelbrot,
   },
