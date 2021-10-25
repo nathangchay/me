@@ -2,9 +2,10 @@
   <h1>
     mandlebrot set generator
   </h1>
-  <h5>
-    click anywhere to zoom in!
-  </h5>
+  <div id="instructions">
+    click anywhere to zoom in! <br>
+    try increasing the max. iterations to get better results at higher zoom levels
+  </div>
 
   <div id="container">
     <canvas
@@ -15,6 +16,10 @@
     />
     <div id="sidebar">
       <div id="options">
+        <div id="options-item">
+          <b> options </b>
+        </div>
+        
         <div id="options-item">
           max. iterations: 
           <input v-model="maxIter">
@@ -29,6 +34,7 @@
         </div>
       </div>
       <div id="info">
+        zoom level: {{ zoomLevel }} x <br>
         left bound: {{ boundLeft }} <br>
         right bound: {{ boundRight }} <br>
         upper bound: {{ boundUp }} <br>
@@ -53,8 +59,9 @@ export default {
       generateButtonText: "re-generate",
       canvasWidth: 550,
       canvasHeight: 500,
-      maxIter: 80,
+      maxIter: 40,
       zoomFactor: 1.5,
+      zoomLevel: 1,
       boundLeft: -2.0,
       boundRight: 0.47,
       boundDown: -1.12,
@@ -111,6 +118,8 @@ export default {
       this.boundRight = mouseXScaled + (newWidth / 2);
       this.boundDown = mouseYScaled - (newHeight / 2);
       this.boundUp = mouseYScaled + (newHeight / 2);
+
+      this.zoomLevel *= zoomFactor;
 
       this.generateMandelbrot();
     },
@@ -209,11 +218,25 @@ export default {
     text-align: left;
   }
 
+  #options {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    justify-content: flex-end;
+    align-items: center;
+  }
+
   #options-item {
+    width: 100%;
     display: flex;
     flex-direction: row;
     align-items: center;
     margin-bottom: 10px;
+  }
+
+  #instructions {
+    font-size: 10pt;
+    margin-bottom: 15px;
   }
 
   input {
