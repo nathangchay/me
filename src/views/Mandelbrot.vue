@@ -14,6 +14,12 @@
       :height="canvasHeight"
       @click="onZoom"
     />
+    <div id="button-small">
+      <img
+        id="icon"
+        src="../assets/zoom-out.png"
+      >
+    </div>
     <div id="sidebar">
       <div id="options">
         <div id="options-item">
@@ -31,6 +37,14 @@
             style="margin-right: 5px"
           >
           x
+        </div>
+        <div id="options-item">
+          <div
+            id="button-slim"
+            @click="resetToDefault"
+          >
+            reset to default
+          </div>
         </div>
       </div>
       <div id="info">
@@ -169,7 +183,18 @@ export default {
           canvasContext.fillRect(xPixel, yPixel, 1, 1);
         }
       }
-    }
+    },
+
+    resetToDefault() {
+      this.maxIter = 40;
+      this.zoomFactor = 1.5;
+      this.boundLeft = -2.0;
+      this.boundRight = 0.47;
+      this.boundUp = 1.12;
+      this.boundDown = -1.12;
+
+      this.generateMandelbrot();
+    },
   },
 };
 </script>
@@ -208,6 +233,45 @@ export default {
 
   #button:hover {
     border-color: var(--text)
+  }
+
+  #button-slim {
+    background-color: var(--accent1);
+    padding: 7px 15px;
+    width: 100%;
+    border-radius: 15px;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  }
+
+  #button-slim:hover {
+    border-color: var(--text)
+  }
+
+  #button-small {
+    background-color: var(--accent1);
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    border-radius: 15px;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #button-small:hover {
+    border-color: var(--text)
+  }
+
+  #icon {
+    width: 30px;
+    height: 30px;
   }
 
   #info {
