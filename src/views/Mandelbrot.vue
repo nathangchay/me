@@ -2,25 +2,29 @@
   <h1>
     mandlebrot set generator
   </h1>
-  <div id="instructions">
-    click anywhere to zoom in! <br>
-    try increasing the max. iterations to get better results at higher zoom levels
-  </div>
 
   <div id="container">
     <canvas
       id="canvas"
       :width="canvasWidth"
       :height="canvasHeight"
-      @click="onZoom"
+      @click="onZoomIn"
     />
-    <div id="button-small">
+    <div
+      id="button-small"
+      @click="onZoomOut"
+    >
       <img
         id="icon"
         src="../assets/zoom-out.png"
       >
     </div>
     <div id="sidebar">
+      <div id="instructions">
+        <b> instructions </b> <br> <br>
+        click anywhere to zoom in! <br> <br>
+        try increasing the max. iterations to get better results at higher zoom levels
+      </div>
       <div id="options">
         <div id="options-item">
           <b> options </b>
@@ -73,7 +77,7 @@ export default {
       generateButtonText: "re-generate",
       canvasWidth: 550,
       canvasHeight: 500,
-      maxIter: 40,
+      maxIter: 80,
       zoomFactor: 1.5,
       zoomLevel: 1,
       boundLeft: -2.0,
@@ -104,11 +108,11 @@ export default {
     this.generateMandelbrot();
   },
   methods: {
-    onZoom(event) {
+    onZoomIn(event) {
       const zoomFactor = this.zoomFactor;
 
-      const width = this.canvasWidth;
-      const height = this.canvasHeight;
+      const pixelWidth = this.canvasWidth;
+      const pixelHeight = this.canvasHeight;
 
       const boundLeft = this.boundLeft;
       const boundRight = this.boundRight;
@@ -122,11 +126,13 @@ export default {
       let mouseX = event.pageX - canvasLeft;
       let mouseY = event.pageY - canvasTop
 
-      let newWidth = Math.abs(boundRight - boundLeft) / zoomFactor;
-      let newHeight = Math.abs(boundDown - boundUp) / zoomFactor;
+      let oldWidth = Math.abs(boundRight - boundLeft);
+      let oldHeight = Math.abs(boundDown - boundUp)
+      let newWidth = oldWidth / zoomFactor;
+      let newHeight = oldHeight / zoomFactor;
 
-      let mouseXScaled = ((mouseX / (width - 1)) * (boundRight - boundLeft)) + boundLeft;
-      let mouseYScaled = ((mouseY / (height - 1)) * (boundUp - boundDown)) + boundDown;
+      let mouseXScaled = ((mouseX / (pixelWidth - 1)) * oldWidth) + boundLeft;
+      let mouseYScaled = ((mouseY / (pixelHeight - 1)) * oldHeight) + boundDown;
 
       this.boundLeft = mouseXScaled - (newWidth / 2);
       this.boundRight = mouseXScaled + (newWidth / 2);
@@ -134,6 +140,29 @@ export default {
       this.boundUp = mouseYScaled + (newHeight / 2);
 
       this.zoomLevel *= zoomFactor;
+
+      this.generateMandelbrot();
+    },
+
+    onZoomOut() {
+      const zoomFactor = this.zoomFactor;
+
+      const boundLeft = this.boundLeft;
+      const boundRight = this.boundRight;
+      const boundDown = this.boundDown;
+      const boundUp = this.boundUp;
+
+      let oldWidth = Math.abs(boundRight - boundLeft);
+      let oldHeight = Math.abs(boundDown - boundUp);
+      let newWidth = oldWidth * zoomFactor;
+      let newHeight = oldHeight * zoomFactor;
+
+      this.boundLeft = boundLeft - ((newWidth - oldWidth) / 2);
+      this.boundRight = boundRight + ((newWidth - oldWidth) / 2);
+      this.boundDown = boundDown - ((newHeight - oldHeight) / 2);
+      this.boundUp = boundUp + ((newHeight - oldHeight) / 2);
+
+      this.zoomLevel /= zoomFactor;
 
       this.generateMandelbrot();
     },
@@ -186,7 +215,7 @@ export default {
     },
 
     resetToDefault() {
-      this.maxIter = 40;
+      this.maxIter = 80;
       this.zoomFactor = 1.5;
       this.boundLeft = -2.0;
       this.boundRight = 0.47;
@@ -227,12 +256,17 @@ export default {
     border-radius: 15px;
     border: solid transparent 2px;
     cursor: pointer;
-    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    box-shadow: 0 4px 1px rgb(0 0 0 / 0.2);
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
   }
 
   #button:hover {
     border-color: var(--text)
+  }
+
+  #button:active {
+    transform: translateY(2px);
+    box-shadow: 0 2px 1px rgb(0 0 0 / 0.2);
   }
 
   #button-slim {
@@ -251,7 +285,10 @@ export default {
   }
 
   #button-small {
+    position: absolute;
     background-color: var(--accent1);
+    margin-left: 10px;
+    margin-top: 10px;
     padding: 5px;
     width: 30px;
     height: 30px;
@@ -299,8 +336,7 @@ export default {
   }
 
   #instructions {
-    font-size: 10pt;
-    margin-bottom: 15px;
+    text-align: left;
   }
 
   input {
