@@ -3,6 +3,7 @@ import Home from '../views/Home.vue';
 import Projects from '../views/Projects.vue';
 import Contact from '../views/Contact.vue';
 import Mandelbrot from '../views/Mandelbrot.vue';
+import Maze from '../views/Maze.vue';
 
 const routes = [
   {
@@ -24,6 +25,11 @@ const routes = [
     path: '/mandelbrot',
     name: 'Mandelbrot',
     component: Mandelbrot,
+  },
+  {
+    path: '/maze',
+    name: 'Maze',
+    component: Maze,
   },
 ]
 
