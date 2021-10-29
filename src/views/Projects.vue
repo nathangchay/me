@@ -3,16 +3,14 @@
     <h1>featured projects</h1>
     <div id="row">
       <FeaturedProjectTile
-        title="project1"
-        desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
-        lang="vue, css"
-        date="aug. 2021"
-        link="/"
+        title="maze"
+        desc="procedurally generated mazes"
+        date="oct. 2021"
+        link="/maze"
       />
       <FeaturedProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
-        lang="vue, css"
         date="aug. 2021"
         link="/"
       />
@@ -22,21 +20,18 @@
       <ProjectTile
         title="mandelbrot"
         desc="draw a mandlebrot set"
-        lang="vue, css"
-        date="aug. 2021"
+        date="sept. 2021"
         link="/mandelbrot"
       />
       <ProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
-        lang="vue, css"
         date="aug. 2021"
         link="/"
       />
       <ProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
-        lang="vue, css"
         date="aug. 2021"
         link="/"
       />
