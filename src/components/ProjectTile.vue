@@ -11,10 +11,7 @@
     </div>
     <div id="info">
       <div id="container-inner">
-        <i>made with <b>{{ lang }}</b></i>
-      </div>
-      <div id="container-inner">
-        <i>in <b>{{ date }}</b></i>
+        <i><b>{{ date }}</b></i>
       </div>
     </div>
   </router-link>
@@ -29,10 +26,6 @@ export default {
       default: '',
     },
     desc: {
-      type: String,
-      default: '',
-    },
-    lang: {
       type: String,
       default: '',
     },
