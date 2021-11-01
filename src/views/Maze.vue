@@ -4,20 +4,25 @@
   </h1>
 
   <div id="buttons">
-    <div
-      id="algo-button"
-      @click="generateGrid"
-    >
-      generate
-    </div>
     <div id="algo-button">
       prim's
     </div>
   </div>
 
   <div id="grid">
-    <div id="row">
-      <div id="tile" />
+    <div
+      v-for="row in maze"
+      id="row"
+      :key="row.id"
+    >
+      <div
+        v-for="tile in row" 
+        id="tile"
+        :key="tile.id"
+        style="
+
+        "
+      />
     </div>
   </div>
 </template>
@@ -27,30 +32,35 @@ export default {
   name: 'Maze',
   data() {
     return {
-      mazeCols: 4,
-      mazeRows: 4,
+      maze: [
+        [
+          { u: 1, d: 1, l: 1, r: 1 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+        ],
+        [
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+        ],
+        [
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+        ],
+        [
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+          { u: 0, d: 0, l: 0, r: 0 },
+        ],
+      ]
     }
   },
   methods: {
-    generateGrid() {
-      const grid = document.getElementById("grid");
-
-      for (let i = 0; i < this.mazeRows; i++) {
-        let row = document.createElement("div");
-        row.setAttribute("id", "row");
-
-        for (let j = 0; j < this.mazeCols; j++) {
-          let tile = document.createElement("div");
-          tile.setAttribute("id", "tile");
-
-          row.appendChild(tile);
-        }
-
-        grid.appendChild(row);
-      }
-
-      grid.$mount();
-    }
   }
 }
 </script>
