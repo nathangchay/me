@@ -4,8 +4,11 @@
   </h1>
 
   <div id="buttons">
-    <div id="algo-button">
-      prim's
+    <div
+      id="algo-button"
+      @click="generateDFS"
+    >
+      DFS
     </div>
   </div>
 
@@ -37,34 +40,110 @@
       return {
         maze: [
           [
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
           ],
           [
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
           ],
           [
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
           ],
           [
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-            { u: 0, d: 0, l: 0, r: 0 },
-          ],
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+            { u: 1, d: 1, l: 1, r: 1 },
+          ]
       ]
     }
   },
   methods: {
-    
+    removeWall(a, b) {
+      if (a.row == b.row - 1) {
+        this.maze[a.row][a.col].d = 0;
+        this.maze[b.row][b.col].u = 0;
+      } else if (a.row == b.row + 1) {
+        this.maze[a.row][a.col].u = 0;
+        this.maze[b.row][b.col].d = 0;
+      } else if (a.col == b.col - 1) {
+        this.maze[a.row][a.col].r = 0;
+        this.maze[b.row][b.col].l = 0;
+      } else if (a.col == b.col + 1) {
+        this.maze[a.row][a.col].l = 0;
+        this.maze[b.row][b.col].r = 0;
+      }
+    },
+
+    isValidTile(tile) {
+      console.log("checking validity:", tile);
+
+      return (
+        tile.row >= 0 &&
+        tile.col >= 0 &&
+        tile.row < this.maze.length &&
+        tile.col < this.maze[tile.row].length
+      );
+    },
+
+    generateDFS() {
+      let stack = [];
+      let visited = [];
+      let neighbors = [];
+      let potNeighbors = [];
+      let selected;
+      let cur = { row: 0, col: 0 };
+
+      visited[parseInt("" + cur.row + cur.col)] = true;
+      stack.push(cur);
+
+      while (stack.length > 0) {
+        cur = stack.pop();
+
+        console.log("cur:", cur);
+        
+        if (cur.row == undefined) {
+          break;
+        }
+
+        neighbors = [];
+
+        potNeighbors = [
+          { row: cur.row + 1, col: cur.col },
+          { row: cur.row - 1, col: cur.col },
+          { row: cur.row, col: cur.col + 1 },
+          { row: cur.row, col: cur.col - 1 },
+        ];
+
+        console.log("potential neighbors:", potNeighbors);
+
+        for (let i = 0; i < 4; i++) {
+          if (this.isValidTile(potNeighbors[i]) && !visited[parseInt("" + potNeighbors[i].row + potNeighbors[i].col)]) {
+            neighbors.push(potNeighbors[i]);
+          }
+        }
+
+        console.log("neighbors", neighbors);
+
+        if (neighbors.length > 0) {
+          stack.push(cur);
+
+          selected = neighbors[Math.floor(Math.random() * neighbors.length)];
+
+          this.removeWall(cur, selected);
+          visited[parseInt("" + selected.row + selected.col)] = true;
+          stack.push(selected);
+        }
+      }
+    },
   }
 }
 </script>
@@ -76,11 +155,15 @@
   flex-direction: row;
 }
 
+#grid {
+  border: solid 2px black;
+}
+
 #tile {
   background-color: white;
   width: 50px;
   height: 50px;
-  border: solid 1px transparent;
+  border: solid 2px transparent;
 }
 
 #buttons {
