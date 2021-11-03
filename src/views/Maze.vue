@@ -19,48 +19,52 @@
         v-for="tile in row" 
         id="tile"
         :key="tile.id"
-        style="
-
-        "
+        :style="{
+          'border-right': tile.r == 1 ? 'solid black 2px' : '',
+          'border-left': tile.l == 1 ? 'solid black 2px' : '',
+          'border-top': tile.u == 1 ? 'solid black 2px' : '',
+          'border-bottom': tile.d == 1 ? 'solid black 2px' : '',
+        }"
       />
     </div>
   </div>
 </template>
 
 <script>
-export default {
-  name: 'Maze',
-  data() {
-    return {
-      maze: [
-        [
-          { u: 1, d: 1, l: 1, r: 1 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-        ],
-        [
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-        ],
-        [
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-        ],
-        [
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-          { u: 0, d: 0, l: 0, r: 0 },
-        ],
+  export default {
+    name: 'Maze',
+    data() {
+      return {
+        maze: [
+          [
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+          ],
+          [
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+          ],
+          [
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+          ],
+          [
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+            { u: 0, d: 0, l: 0, r: 0 },
+          ],
       ]
     }
   },
   methods: {
+    
   }
 }
 </script>
@@ -76,7 +80,7 @@ export default {
   background-color: white;
   width: 50px;
   height: 50px;
-  border: 1px transparent;
+  border: solid 1px transparent;
 }
 
 #buttons {
