@@ -12,6 +12,11 @@
     </div>
   </div>
 
+  <div id="options">
+    maze size: <input v-model="rows">x<input v-model="cols">
+    tile size: <input v-model="tileSize">
+  </div>
+  
   <div id="grid">
     <div
       v-for="row in maze"
@@ -23,6 +28,8 @@
         id="tile"
         :key="tile.id"
         :style="{
+          'height': tileSize + 'px',
+          'width': tileSize + 'px',
           'border-right': tile.r == 1 ? 'solid black 2px' : '',
           'border-left': tile.l == 1 ? 'solid black 2px' : '',
           'border-top': tile.u == 1 ? 'solid black 2px' : '',
@@ -38,35 +45,25 @@
     name: 'Maze',
     data() {
       return {
-        maze: [
-          [
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-          ],
-          [
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-          ],
-          [
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-          ],
-          [
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-            { u: 1, d: 1, l: 1, r: 1 },
-          ]
-      ]
+        tileSize: 50,
+        rows: 4,
+        cols: 4,
+        maze: [],
     }
   },
   methods: {
+    resetMaze() {
+      this.maze = [];
+
+      for (let i = 0; i < this.rows; i++) {
+        this.maze.push([]);  
+
+        for (let j = 0; j < this.cols; j++) {
+          this.maze[i].push({ u: 1, d: 1, l: 1, r: 1})
+        }
+      }
+    },
+
     removeWall(a, b) {
       if (a.row == b.row - 1) {
         this.maze[a.row][a.col].d = 0;
@@ -84,8 +81,6 @@
     },
 
     isValidTile(tile) {
-      console.log("checking validity:", tile);
-
       return (
         tile.row >= 0 &&
         tile.col >= 0 &&
@@ -102,14 +97,14 @@
       let selected;
       let cur = { row: 0, col: 0 };
 
+      this.resetMaze();
+      
       visited[parseInt("" + cur.row + cur.col)] = true;
       stack.push(cur);
 
       while (stack.length > 0) {
         cur = stack.pop();
 
-        console.log("cur:", cur);
-        
         if (cur.row == undefined) {
           break;
         }
@@ -123,15 +118,11 @@
           { row: cur.row, col: cur.col - 1 },
         ];
 
-        console.log("potential neighbors:", potNeighbors);
-
         for (let i = 0; i < 4; i++) {
           if (this.isValidTile(potNeighbors[i]) && !visited[parseInt("" + potNeighbors[i].row + potNeighbors[i].col)]) {
             neighbors.push(potNeighbors[i]);
           }
         }
-
-        console.log("neighbors", neighbors);
 
         if (neighbors.length > 0) {
           stack.push(cur);
@@ -168,10 +159,16 @@
 
 #buttons {
   display: flex;
+  align-items: center;
+  flex-direction: row;
+}
+
+#options {
+  display: flex;
+  align-items: center;
   flex-direction: row;
   margin-bottom: 20px;
 }
-
 #algo-button {
   background-color: var(--container);
   padding: 15px;
@@ -185,5 +182,33 @@
 
 #algo-button:hover {
   border-color: var(--text)
+}
+
+#button-small {
+  background-color: var(--container);
+  padding: 10px ;
+  margin: 10px;
+  border-radius: 15px;
+  border: solid transparent 2px;
+  cursor: pointer;
+  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  font-size: 8pt;
+  text-align: center;
+}
+
+input {
+  font-size: inherit;
+  font-family: inherit;
+  color: inherit;
+  background-color: var(--accent1);
+  border: none;
+  border-radius: 15px;
+  width: 0px;
+  flex: 1;
+  padding: 5px 12px;
+  margin: 10px 10px;
+  text-align: center;
+  width: 30px;
 }
 </style>
