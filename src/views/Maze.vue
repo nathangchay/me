@@ -28,6 +28,7 @@
         id="tile"
         :key="tile.id"
         :style="{
+          'background-color': tile.c == 1 ? 'red' : 'white',
           'height': tileSize + 'px',
           'width': tileSize + 'px',
           'border-right': tile.r == 1 ? 'solid black 2px' : '',
@@ -45,9 +46,9 @@
     name: 'Maze',
     data() {
       return {
-        tileSize: 50,
-        rows: 4,
-        cols: 4,
+        tileSize: 10,
+        rows: 30,
+        cols: 30,
         maze: [],
     }
   },
@@ -59,7 +60,7 @@
         this.maze.push([]);  
 
         for (let j = 0; j < this.cols; j++) {
-          this.maze[i].push({ u: 1, d: 1, l: 1, r: 1})
+          this.maze[i].push({ u: 1, d: 1, l: 1, r: 1, c: 0 })
         }
       }
     },
@@ -89,21 +90,34 @@
       );
     },
 
-    generateDFS() {
+    async generateDFS() {
       let stack = [];
       let visited = [];
+      let row = [];
       let neighbors = [];
       let potNeighbors = [];
       let selected;
       let cur = { row: 0, col: 0 };
+      let delay = ms => new Promise(res => setTimeout(res, ms));
 
       this.resetMaze();
+
+      for (let i = 0; i < this.rows; i++) {
+        row = [];
+
+        for (let j = 0; j < this.cols; j++) {
+          row.push(false);
+        }
+
+        visited.push(row);
+      }
       
-      visited[parseInt("" + cur.row + cur.col)] = true;
+      visited[cur.row][cur.col] = true;
       stack.push(cur);
 
       while (stack.length > 0) {
         cur = stack.pop();
+        this.maze[cur.row][cur.col].c = 1;
 
         if (cur.row == undefined) {
           break;
@@ -119,7 +133,7 @@
         ];
 
         for (let i = 0; i < 4; i++) {
-          if (this.isValidTile(potNeighbors[i]) && !visited[parseInt("" + potNeighbors[i].row + potNeighbors[i].col)]) {
+          if (this.isValidTile(potNeighbors[i]) && !visited[potNeighbors[i].row][potNeighbors[i].col]) {
             neighbors.push(potNeighbors[i]);
           }
         }
@@ -130,9 +144,12 @@
           selected = neighbors[Math.floor(Math.random() * neighbors.length)];
 
           this.removeWall(cur, selected);
-          visited[parseInt("" + selected.row + selected.col)] = true;
+          visited[selected.row][selected.col] = true;
           stack.push(selected);
         }
+        
+        await delay(10);
+        this.maze[cur.row][cur.col].c = 0;
       }
     },
   }
@@ -154,7 +171,7 @@
   background-color: white;
   width: 50px;
   height: 50px;
-  border: solid 2px transparent;
+  border: solid 2px white;
 }
 
 #buttons {
@@ -169,6 +186,7 @@
   flex-direction: row;
   margin-bottom: 20px;
 }
+
 #algo-button {
   background-color: var(--container);
   padding: 15px;
