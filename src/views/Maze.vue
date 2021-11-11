@@ -8,13 +8,32 @@
       id="algo-button"
       @click="generateDFS"
     >
-      DFS
+      depth-first search
+    </div>
+    <div
+      id="algo-button"
+      @click="generateKruskal"
+    >
+      randomized kruskal's
     </div>
   </div>
 
-  <div id="options">
-    maze size: <input v-model="rows">x<input v-model="cols">
-    tile size: <input v-model="tileSize">
+  <div id="options-container">
+    <div id="option">
+      maze size: <input v-model="rows">x<input v-model="cols">
+    </div>
+    <div id="option">
+      tile size: <input v-model="tileSize">px
+    </div>
+    <div id="option">
+      animation:
+      <div
+        id="option-button"
+        @click="() => { animate = !animate }"
+      >
+        {{ animate ? "on" : "off" }}
+      </div>
+    </div>
   </div>
   
   <div id="grid">
@@ -46,6 +65,7 @@
     name: 'Maze',
     data() {
       return {
+        animate: true,
         tileSize: 10,
         rows: 30,
         cols: 30,
@@ -53,6 +73,10 @@
     }
   },
   methods: {
+    delay(ms) {
+      return new Promise(res => setTimeout(res, ms));
+    },
+
     resetMaze() {
       this.maze = [];
 
@@ -98,7 +122,6 @@
       let potNeighbors = [];
       let selected;
       let cur = { row: 0, col: 0 };
-      let delay = ms => new Promise(res => setTimeout(res, ms));
 
       this.resetMaze();
 
@@ -148,10 +171,63 @@
           stack.push(selected);
         }
         
-        await delay(10);
+        if (this.animate) {
+          await this.delay(10);
+        }
+        
         this.maze[cur.row][cur.col].c = 0;
       }
     },
+
+    async generateKruskal() {
+      let walls = [];
+      let sets = [];
+      let cur, aSet, bSet;
+
+      this.resetMaze();
+
+      for (let i = 0; i < this.rows; i++) {
+        for (let j = 0; j < this.cols; j++) {
+          sets.push([{ row: i, col: j }]);
+
+          if (i < this.rows - 1) {
+            walls.push({ a: { row: i, col: j }, b: { row: i + 1, col: j }});
+          }
+
+          if (j < this.cols - 1) {
+            walls.push({ a: { row: i, col: j }, b: { row: i, col: j + 1 }})
+          }
+        }
+
+        sets.push(row);
+      }
+
+      while (walls.length > 0) {
+        cur = walls[Math.floor(Math.random() * walls.length)];
+
+        aSet = 0;
+        bSet = 0;
+        for (let i = 0; i < sets.length; i++) {
+          if (sets[i].includes({ row: cur.a.row, col: cur.a.col })) {
+            aSet = i;
+          }
+
+          if (sets[i].includes({ row: cur.b.row, col: cur.b.col })) {
+            bSet = i;
+          }
+
+          if (aSet != 0 && bSet != 0) {
+            break;
+          }
+        }
+
+        if (aSet != bSet) {
+          this.removeWall(cur.a, cur.b);
+          sets[aSet] = sets[aSet].concat(sets[bSet]);
+          sets.splice(bSet, 1);
+        }
+      }
+    }
   }
 }
 </script>
@@ -180,11 +256,24 @@
   flex-direction: row;
 }
 
-#options {
+#options-container {
+  width: 500px;
+  background-color: var(--container);
+  padding: 10px 20px;
+  border-radius: 15px;
+  display: flex;
+  align-items: flex-start;
+  flex-direction: column;
+  margin-bottom: 20px;
+  margin-top: 10px;
+  justify-content: flex-start;
+  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+}
+
+#option {
   display: flex;
   align-items: center;
   flex-direction: row;
-  margin-bottom: 20px;
 }
 
 #algo-button {
@@ -199,6 +288,21 @@
 }
 
 #algo-button:hover {
+  border-color: var(--text)
+}
+
+#option-button {
+  background-color: var(--accent1);
+  padding: 5px 10px;
+  margin: 5px;
+  border-radius: 15px;
+  border: solid transparent 2px;
+  cursor: pointer;
+  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+}
+
+#option-button:hover {
   border-color: var(--text)
 }
 
@@ -225,7 +329,7 @@ input {
   width: 0px;
   flex: 1;
   padding: 5px 12px;
-  margin: 10px 10px;
+  margin: 5px;
   text-align: center;
   width: 30px;
 }
