@@ -14,7 +14,7 @@
       id="algo-button"
       @click="generateKruskal"
     >
-      randomized kruskal's
+      kruskal's
     </div>
   </div>
 
@@ -182,7 +182,7 @@
     async generateKruskal() {
       let walls = [];
       let sets = [];
-      let cur, aSet, bSet;
+      let cur, curInd, aSet, bSet;
 
       this.resetMaze();
 
@@ -198,26 +198,30 @@
             walls.push({ a: { row: i, col: j }, b: { row: i, col: j + 1 }})
           }
         }
-
-        sets.push(row);
       }
 
-      while (walls.length > 0) {
-        cur = walls[Math.floor(Math.random() * walls.length)];
+      while (sets.length > 1) {
+        curInd = Math.floor(Math.random() * walls.length);
+        cur = walls[curInd];
 
-        aSet = 0;
-        bSet = 0;
+        this.maze[cur.a.row][cur.a.col].c = 1;
+        this.maze[cur.b.row][cur.b.col].c = 1;
+
+        aSet = -1;
+        bSet = -1;
         for (let i = 0; i < sets.length; i++) {
-          if (sets[i].includes({ row: cur.a.row, col: cur.a.col })) {
-            aSet = i;
+          for (let j = 0; j < sets[i].length; j++) {
+            if (sets[i][j].row == cur.a.row && sets[i][j].col == cur.a.col) {
+              aSet = i;
+            }
+
+            if (sets[i][j].row == cur.b.row && sets[i][j].col == cur.b.col) {
+              bSet = i;
+            }
           }
 
-          if (sets[i].includes({ row: cur.b.row, col: cur.b.col })) {
-            bSet = i;
-          }
-
-          if (aSet != 0 && bSet != 0) {
-            break;
+          if (aSet != -1 && bSet != -1) {
+              break;
           }
         }
 
@@ -225,7 +229,15 @@
           this.removeWall(cur.a, cur.b);
           sets[aSet] = sets[aSet].concat(sets[bSet]);
           sets.splice(bSet, 1);
+          walls.splice(curInd, 1);
         }
+
+        if (this.animate) {
+          await this.delay(10);
+        }
+
+        this.maze[cur.a.row][cur.a.col].c = 0;
+        this.maze[cur.b.row][cur.b.col].c = 0;
       }
     }
   }
@@ -279,7 +291,7 @@
 #algo-button {
   background-color: var(--container);
   padding: 15px;
-  margin: 10px;
+  margin: 10px 5px;
   border-radius: 15px;
   border: solid transparent 2px;
   cursor: pointer;
