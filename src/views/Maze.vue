@@ -16,6 +16,12 @@
     >
       kruskal's
     </div>
+    <div
+      id="algo-button"
+      @click="generatePrim"
+    >
+      orim's
+    </div>
   </div>
 
   <div id="options-container">
@@ -114,10 +120,31 @@
       );
     },
 
+    getNeighboringWalls(tile) {
+      let walls = [];
+
+      if (tile.row > 0) {
+        walls.push({ a: { row: tile.row, col: tile.col }, b: { row: tile.row - 1, col: tile.col }});
+      }
+
+      if (tile.row < this.rows - 1) {
+        walls.push({ a: { row: tile.row, col: tile.col }, b: { row: tile.row + 1, col: tile.col }});
+      }
+
+      if (tile.col > 0) {
+        walls.push({ a: { row: tile.row, col: tile.col }, b: { row: tile.row, col: tile.col - 1 }});
+      }
+
+      if (tile.col < this.cols - 1) {
+        walls.push({ a: { row: tile.row, col: tile.col }, b: { row: tile.row, col: tile.col + 1 }});
+      }
+
+      return walls;
+    },
+
     async generateDFS() {
       let stack = [];
       let visited = [];
-      let row = [];
       let neighbors = [];
       let potNeighbors = [];
       let selected;
@@ -125,6 +152,7 @@
 
       this.resetMaze();
 
+      let row = [];
       for (let i = 0; i < this.rows; i++) {
         row = [];
 
@@ -238,6 +266,61 @@
 
         this.maze[cur.a.row][cur.a.col].c = 0;
         this.maze[cur.b.row][cur.b.col].c = 0;
+      }
+    },
+
+    async generatePrim() {
+      let curTile = { row: 0, col: 0 };
+      let curWall, curWallInd;
+      let walls = this.getNeighboringWalls(curTile);
+      let visited = [];
+
+      this.resetMaze();
+
+      let row = [];
+      for (let i = 0; i < this.rows; i++) {
+        row = [];
+
+        for (let j = 0; j < this.cols; j++) {
+          row.push(false);
+        }
+
+        visited.push(row);
+      }
+
+      visited[curTile.row][curTile.col] = true;
+
+      while (walls.length > 0) {
+        curWallInd = Math.floor(Math.random() * walls.length);
+        curWall = walls[curWallInd];
+
+        this.maze[curWall.a.row][curWall.a.col].c = 1;
+        this.maze[curWall.b.row][curWall.b.col].c = 1;
+
+        if (
+          visited[curWall.a.row][curWall.a.col] && !visited[curWall.b.row][curWall.b.col] ||
+          !visited[curWall.a.row][curWall.a.col] && visited[curWall.b.row][curWall.b.col]
+        ) {
+          this.removeWall(curWall.a, curWall.b);
+
+          if (!visited[curWall.b.row][curWall.b.col]) {
+            walls = walls.concat(this.getNeighboringWalls(curWall.b));
+          } else {
+            walls = walls.concat(this.getNeighboringWalls(curWall.a));
+          }
+
+          visited[curWall.a.row][curWall.a.col] = true;
+          visited[curWall.b.row][curWall.b.col] = true;
+        }
+
+        walls.splice(curWallInd, 1);
+
+        if (this.animate) {
+          await this.delay(10);
+        }
+
+        this.maze[curWall.a.row][curWall.a.col].c = 0;
+        this.maze[curWall.b.row][curWall.b.col].c = 0;
       }
     }
   }
