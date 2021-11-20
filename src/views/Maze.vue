@@ -20,7 +20,13 @@
       id="algo-button"
       @click="generatePrim"
     >
-      orim's
+      prim's
+    </div>
+    <div
+      id="algo-button"
+      @click="generateWilson"
+    >
+      wilson's
     </div>
   </div>
 
@@ -321,6 +327,65 @@
 
         this.maze[curWall.a.row][curWall.a.col].c = 0;
         this.maze[curWall.b.row][curWall.b.col].c = 0;
+      }
+    },
+
+    async generateWilson() {
+      let visited = [];
+      let path = [];
+      let isInPath = [];
+      let potNeighbors = [];
+      let cur = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) };
+      let start = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) };
+      let selected;
+
+      this.resetMaze();
+
+      let row = [];
+      for (let i = 0; i < this.rows; i++) {
+        row = [];
+
+        for (let j = 0; j < this.cols; j++) {
+          row.push(false);
+        }
+
+        visited.push(row);
+        isInPath.push(row);
+      }
+
+      visited[start.row][start.col] = true;
+      path.push(cur);
+      isInPath[cur.row][cur.col] = true;
+
+      while (visited.length < (this.rows - 1) * (this.cols - 1)) {
+        neighbors = [];
+
+        potNeighbors = [
+          { row: cur.row + 1, col: cur.col },
+          { row: cur.row - 1, col: cur.col },
+          { row: cur.row, col: cur.col + 1 },
+          { row: cur.row, col: cur.col - 1 },
+        ];
+
+        for (let i = 0; i < 4; i++) {
+          if (this.isValidTile(potNeighbors[i])) {
+            neighbors.push(potNeighbors[i]);
+          }
+        }
+
+        selected = neighbors[Math.floor(Math.random() * neighbors.length)];
+
+        if (visited[selected.row][selected.col]) {
+          for (let i = 0; i < path.length; i++) {
+            visited[path[i].row][path[i].col] = true;
+            isInPath[path[i].row][path[i].col] = false;
+          }
+
+          path = [];
+          cur = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) };
+
+          continue;
+        }
       }
     }
   }
