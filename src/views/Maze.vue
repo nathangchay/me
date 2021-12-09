@@ -22,12 +22,14 @@
     >
       prim's
     </div>
+    <!--
     <div
       id="algo-button"
       @click="generateWilson"
     >
       wilson's
     </div>
+    -->
   </div>
 
   <div id="options-container">
@@ -114,6 +116,22 @@
       } else if (a.col == b.col + 1) {
         this.maze[a.row][a.col].l = 0;
         this.maze[b.row][b.col].r = 0;
+      }
+    },
+
+    addWall(a, b) {
+      if (a.row == b.row - 1) {
+        this.maze[a.row][a.col].d = 1;
+        this.maze[b.row][b.col].u = 1;
+      } else if (a.row == b.row + 1) {
+        this.maze[a.row][a.col].u = 1;
+        this.maze[b.row][b.col].d = 1;
+      } else if (a.col == b.col - 1) {
+        this.maze[a.row][a.col].r = 1;
+        this.maze[b.row][b.col].l = 1;
+      } else if (a.col == b.col + 1) {
+        this.maze[a.row][a.col].l = 1;
+        this.maze[b.row][b.col].r = 1;
       }
     },
 
@@ -330,32 +348,41 @@
       }
     },
 
+    /*
     async generateWilson() {
       let visited = [];
       let path = [];
       let isInPath = [];
+      let neighbors = [];
       let potNeighbors = [];
       let cur = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) };
+      let prev;
       let start = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) };
       let selected;
 
       this.resetMaze();
 
       let row = [];
+      let row2 = [];
       for (let i = 0; i < this.rows; i++) {
         row = [];
+        row2 = [];
 
         for (let j = 0; j < this.cols; j++) {
           row.push(false);
+          row2.push(false);
         }
 
         visited.push(row);
-        isInPath.push(row);
+        isInPath.push(row2);
       }
 
       visited[start.row][start.col] = true;
+      console.log("Setting first maze tile to", start, "visited =", visited[start.row][start.col], "isInPath = ", isInPath[start.row][start.col]);
+
       path.push(cur);
       isInPath[cur.row][cur.col] = true;
+      console.log("Setting start to", cur, "visited =", visited[cur.row][cur.col], "isInPath = ", isInPath[cur.row][cur.col]);
 
       while (visited.length < (this.rows - 1) * (this.cols - 1)) {
         neighbors = [];
@@ -367,6 +394,8 @@
           { row: cur.row, col: cur.col - 1 },
         ];
 
+        this.maze[cur.row][cur.col].c = 1;
+
         for (let i = 0; i < 4; i++) {
           if (this.isValidTile(potNeighbors[i])) {
             neighbors.push(potNeighbors[i]);
@@ -375,7 +404,16 @@
 
         selected = neighbors[Math.floor(Math.random() * neighbors.length)];
 
+        if (this.animate) {
+          await this.delay(1000);
+        }
+
+        this.maze[cur.row][cur.col].c = 0;
+
         if (visited[selected.row][selected.col]) {
+          console.log("Selected:", selected, "is in visited");
+          this.removeWall(cur, selected);
+
           for (let i = 0; i < path.length; i++) {
             visited[path[i].row][path[i].col] = true;
             isInPath[path[i].row][path[i].col] = false;
@@ -383,11 +421,39 @@
 
           path = [];
           cur = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) };
+        } else if (isInPath[selected.row][selected.col]) {
+          console.log("Selected:", selected, "is in path");
 
-          continue;
+          console.log("Getting prev and cur from path:");
+          prev = path.pop();
+          cur = prev;
+          console.log("prev:", prev, "cur:", cur);
+          isInPath[cur.row][cur.col] = false;
+
+          console.log("Adding wall between prev and cur");
+          this.addWall(prev, cur);
+
+          while (prev.row != selected.row && prev.col != selected.col) {
+            prev = cur;
+            cur = path.pop();
+            isInPath[cur.row][cur.col] = false;
+
+            console.log("Adding wall between prev and cur");
+            this.addWall(prev, cur);
+          }
+        } else {
+          console.log("Selected:", selected, "is new");
+          this.removeWall(cur, selected);
+
+          cur = selected;
+
+          path.push(cur);
+          isInPath[cur.row][cur.col] = true;
+          visited[cur.row][cur.col] = false;
         }
       }
     }
+    */
   }
 }
 </script>
