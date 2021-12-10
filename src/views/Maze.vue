@@ -22,6 +22,12 @@
     >
       prim's
     </div>
+    <div
+      id="algo-button"
+      @click="generateAldousBroder"
+    >
+      aldous-broder
+    </div>
     <!--
     <div
       id="algo-button"
@@ -454,6 +460,10 @@
       }
     }
     */
+    
+    async generateAldousBroder() {
+      
+    }
   }
 }
 </script>
