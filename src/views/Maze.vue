@@ -54,6 +54,9 @@
         {{ animate ? "on" : "off" }}
       </div>
     </div>
+    <div id="options">
+      animation delay: <input v-model="animDelay">
+    </div>
   </div>
   
   <div id="grid">
@@ -85,7 +88,9 @@
     name: 'Maze',
     data() {
       return {
+        running: false,
         animate: true,
+        animDelay: 50,
         tileSize: 10,
         rows: 30,
         cols: 30,
@@ -93,8 +98,8 @@
     }
   },
   methods: {
-    delay(ms) {
-      return new Promise(res => setTimeout(res, ms));
+    delay() {
+      return new Promise(res => setTimeout(res, this.animDelay));
     },
 
     resetMaze() {
@@ -180,7 +185,12 @@
       let selected;
       let cur = { row: 0, col: 0 };
 
+      if (this.running) {
+        return;
+      }
+
       this.resetMaze();
+      this.running = true;
 
       let row = [];
       for (let i = 0; i < this.rows; i++) {
@@ -230,11 +240,13 @@
         }
         
         if (this.animate) {
-          await this.delay(10);
+          await this.delay();
         }
         
         this.maze[cur.row][cur.col].c = 0;
       }
+
+      this.running = false;
     },
 
     async generateKruskal() {
@@ -242,7 +254,12 @@
       let sets = [];
       let cur, curInd, aSet, bSet;
 
+      if (this.running) {
+        return;
+      }
+
       this.resetMaze();
+      this.running = true;
 
       for (let i = 0; i < this.rows; i++) {
         for (let j = 0; j < this.cols; j++) {
@@ -291,12 +308,14 @@
         }
 
         if (this.animate) {
-          await this.delay(10);
+          await this.delay();
         }
 
         this.maze[cur.a.row][cur.a.col].c = 0;
         this.maze[cur.b.row][cur.b.col].c = 0;
       }
+
+      this.running = false;
     },
 
     async generatePrim() {
@@ -305,7 +324,12 @@
       let walls = this.getNeighboringWalls(curTile);
       let visited = [];
 
+      if (this.running) {
+        return;
+      }
+
       this.resetMaze();
+      this.running = true;
 
       let row = [];
       for (let i = 0; i < this.rows; i++) {
@@ -346,12 +370,14 @@
         walls.splice(curWallInd, 1);
 
         if (this.animate) {
-          await this.delay(10);
+          await this.delay();
         }
 
         this.maze[curWall.a.row][curWall.a.col].c = 0;
         this.maze[curWall.b.row][curWall.b.col].c = 0;
       }
+
+      this.running = false;
     },
 
     /*
@@ -411,7 +437,7 @@
         selected = neighbors[Math.floor(Math.random() * neighbors.length)];
 
         if (this.animate) {
-          await this.delay(1000);
+          await this.delay();
         }
 
         this.maze[cur.row][cur.col].c = 0;
@@ -462,7 +488,70 @@
     */
     
     async generateAldousBroder() {
-      
+      let visited = [];
+      let visitedCount = 0;
+      let neighbors = [];
+      let potNeighbors = [];
+      let cur, selected;
+
+      if (this.running) {
+        return;
+      }
+
+      this.running = true;
+
+      let row = [];
+      for (let i = 0; i < this.rows; i++) {
+        row = [];
+
+        for (let j = 0; j < this.cols; j++) {
+          row.push(false);
+        }
+
+        visited.push(row);
+      }
+
+      this.resetMaze();
+
+      cur = { row: Math.floor(Math.random() * this.rows), col: Math.floor(Math.random() * this.cols) }
+      visited[cur.row][cur.col] = true;
+      visitedCount++;
+
+      while (visitedCount < this.rows * this.cols) {
+        this.maze[cur.row][cur.col].c = 1;
+
+        neighbors = [];
+
+        potNeighbors = [
+          { row: cur.row + 1, col: cur.col },
+          { row: cur.row - 1, col: cur.col },
+          { row: cur.row, col: cur.col + 1 },
+          { row: cur.row, col: cur.col - 1 },
+        ];
+
+        for (let i = 0; i < 4; i++) {
+          if (this.isValidTile(potNeighbors[i])) {
+            neighbors.push(potNeighbors[i]);
+          }
+        }
+
+        selected = neighbors[Math.floor(Math.random() * neighbors.length)];
+
+        if (!visited[selected.row][selected.col]) {
+          this.removeWall(cur, selected);
+          visited[selected.row][selected.col] = true;
+          visitedCount++;
+        }
+
+        if (this.animate) {
+          await this.delay();
+        }
+
+        this.maze[cur.row][cur.col].c = 0;
+        cur = selected;
+      }
+
+      this.running = false;
     }
   }
 }
