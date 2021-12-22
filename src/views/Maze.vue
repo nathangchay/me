@@ -90,7 +90,7 @@
       return {
         running: false,
         animate: true,
-        animDelay: 50,
+        animDelay: 10,
         tileSize: 10,
         rows: 30,
         cols: 30,
