@@ -9,19 +9,19 @@
         link="/maze"
       />
       <FeaturedProjectTile
-        title="project1"
-        desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
-        date="aug. 2021"
-        link="/"
+        title="mandelbrot"
+        desc="draw a mandlebrot set"
+        date="sept. 2021"
+        link="/mandelbrot"
       />
     </div>
     <h2>other projects</h2>
     <div id="row">
       <ProjectTile
-        title="mandelbrot"
-        desc="draw a mandlebrot set"
-        date="sept. 2021"
-        link="/mandelbrot"
+        title="project1"
+        desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
+        date="aug. 2021"
+        link="/"
       />
       <ProjectTile
         title="project1"
