@@ -1,7 +1,7 @@
 <template>
   <div id="container">
     <div id="title">
-      i'm <b>nate</b>, a software developer from canada
+      i'm <b>nate</b>, a software developer from saskatchewan, canada
     </div>
     <br>
     <div>
