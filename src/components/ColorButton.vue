@@ -29,11 +29,9 @@
 <script>
 export default {
   name: 'ColorButton',
-  data() {
-    return {
-      defaultVisible: false,
-    }
-  },
+  data: () => ({
+    defaultVisible: false,
+  }),
   methods: {
     setColor(cssVar, palette, i) {
         document.documentElement.style.setProperty(
