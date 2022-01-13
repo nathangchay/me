@@ -15,6 +15,7 @@
         link="/mandelbrot"
       />
     </div>
+    <!--
     <h2>other projects</h2>
     <div id="row">
       <ProjectTile
@@ -36,6 +37,7 @@
         link="/"
       />
     </div>
+    -->
   </div>
 </template>
 
@@ -47,7 +49,7 @@ export default {
   name: 'Projects',
   components: {
     FeaturedProjectTile,
-    ProjectTile,
+    // ProjectTile,
   }
 };
 </script>
