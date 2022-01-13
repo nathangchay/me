@@ -1,17 +1,10 @@
 <template>
   <div>
-    i can be easily reached via:
+    i can be easily reached via e-mail:
   </div>
   <br>
   <div id="container">
-    <ContactButton
-      text="e-mail"
-      link="mailto:nathangchay@gmail.com"
-    />
-    <ContactButton
-      text="discord"
-      link="https://discordapp.com/users/136661471462424576"
-    />
+    <HiddenContainer text="nathangchay@gmail.com" />
   </div>
   <br>
   <div>
@@ -32,11 +25,13 @@
 
 <script>
 import ContactButton from '../components/ContactButton.vue';
+import HiddenContainer from '../components/HiddenContainer.vue';
 
 export default {
   name: 'Contact',
   components: {
     ContactButton,
+    HiddenContainer,
   }
 };
 </script>
