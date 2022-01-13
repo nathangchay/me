@@ -15,7 +15,7 @@ export default {
   name: 'Title',
 
   data: () => ({
-    finalText: ['hi! i\'m nate', 'welcome to my page :-)'],
+    finalText: ['hi! i\'m nate', 'welcome to my portfolio! :-)'],
     curText: ' ',
     underscore: '_',
   }),
