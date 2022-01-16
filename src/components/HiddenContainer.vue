@@ -1,6 +1,7 @@
 <template>
   <div
     id="button"
+    @click="reveal"
   >
     {{ revealed ? text : "reveal" }}
   </div>  
@@ -18,6 +19,11 @@ export default {
   data: () => ({
     revealed: false,
   }),
+  methods: {
+    reveal() {
+      this.revealed = true;
+    }
+  },
 }
 </script>
 
