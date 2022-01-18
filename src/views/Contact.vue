@@ -14,7 +14,7 @@
   <div id="container">
     <ContactButton
       text="github"
-      link="https://github.com/natetheneet"
+      link="https://github.com/nathangchay"
     />
     <ContactButton
       text="linkedin"
