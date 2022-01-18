@@ -38,47 +38,52 @@
     -->
   </div>
 
-  <div id="options-container">
-    <div id="option">
-      maze size: <input v-model="rows">x<input v-model="cols">
-    </div>
-    <div id="option">
-      tile size: <input v-model="tileSize">px
-    </div>
-    <div id="option">
-      animation:
-      <div
-        id="option-button"
-        @click="() => { animate = !animate }"
-      >
-        {{ animate ? "on" : "off" }}
+  <div id="outer-container">
+    <div id="options-container">
+      <div id="option">
+        <b>options</b>
+      </div>
+      <div id="option">
+        maze size: <input v-model="rows">x<input v-model="cols">
+      </div>
+      <div id="option">
+        tile size: <input v-model="tileSize">px
+      </div>
+      <div id="options">
+        animation delay: <input v-model="animDelay">ms
+      </div>
+      <div id="option">
+        animation:
+        <div
+          id="option-button"
+          @click="() => { animate = !animate }"
+        >
+          {{ animate ? "on" : "off" }}
+        </div>
       </div>
     </div>
-    <div id="options">
-      animation delay: <input v-model="animDelay">
-    </div>
-  </div>
-  
-  <div id="grid">
-    <div
-      v-for="row in maze"
-      id="row"
-      :key="row.id"
-    >
+    
+    <div id="grid">
       <div
-        v-for="tile in row" 
-        id="tile"
-        :key="tile.id"
-        :style="{
-          'background-color': tile.c == 1 ? 'red' : 'white',
-          'height': tileSize + 'px',
-          'width': tileSize + 'px',
-          'border-right': tile.r == 1 ? 'solid black 2px' : '',
-          'border-left': tile.l == 1 ? 'solid black 2px' : '',
-          'border-top': tile.u == 1 ? 'solid black 2px' : '',
-          'border-bottom': tile.d == 1 ? 'solid black 2px' : '',
-        }"
-      />
+        v-for="row in maze"
+        id="row"
+        :key="row.id"
+      >
+        <div
+          v-for="tile in row" 
+          id="tile"
+          :key="tile.id"
+          :style="{
+            'background-color': tile.c == 1 ? 'red' : 'white',
+            'height': tileSize + 'px',
+            'width': tileSize + 'px',
+            'border-right': tile.r == 1 ? 'solid black 2px' : '',
+            'border-left': tile.l == 1 ? 'solid black 2px' : '',
+            'border-top': tile.u == 1 ? 'solid black 2px' : '',
+            'border-bottom': tile.d == 1 ? 'solid black 2px' : '',
+          }"
+        />
+      </div>
     </div>
   </div>
 </template>
@@ -581,8 +586,14 @@
   flex-direction: row;
 }
 
+#outer-container {
+  display: flex;
+  flex-direction: row;
+  margin-top: 20px;
+  align-items: flex-start;
+}
+
 #options-container {
-  width: 500px;
   background-color: var(--container);
   padding: 10px 20px;
   border-radius: 15px;
@@ -590,7 +601,7 @@
   align-items: flex-start;
   flex-direction: column;
   margin-bottom: 20px;
-  margin-top: 10px;
+  margin-right: 30px;
   justify-content: flex-start;
   box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
 }
