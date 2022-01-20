@@ -5,7 +5,7 @@
     </div>
     <br>
     <div>
-      this site hosts all of my web-based projects!
+      this site hosts some of my smaller web-based projects!
     </div>
   </div>
 </template>
