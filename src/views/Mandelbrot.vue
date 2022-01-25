@@ -3,7 +3,7 @@
     mandlebrot set generator
   </h1>
 
-  <div id="container">
+  <div class="container">
     <canvas
       id="canvas"
       :width="canvasWidth"
@@ -11,11 +11,10 @@
       @click="onZoomIn"
     />
     <div
-      id="button-small"
+      class="button-small"
       @click="onZoomOut"
     >
       <img
-        id="icon"
         src="../assets/zoom-out.png"
       >
     </div>
@@ -26,15 +25,15 @@
         try increasing the max. iterations to get better results at higher zoom levels
       </div>
       <div id="options">
-        <div id="options-item">
+        <div class="options-item">
           <b> options </b>
         </div>
         
-        <div id="options-item">
+        <div class="options-item">
           max. iterations: 
           <input v-model="maxIter">
         </div>
-        <div id="options-item">
+        <div class="options-item">
           zoom factor:
           <input
             v-model="zoomFactor"
@@ -42,9 +41,9 @@
           >
           x
         </div>
-        <div id="options-item">
+        <div class="options-item">
           <div
-            id="button-slim"
+            class="button-slim"
             @click="resetToDefault"
           >
             reset to default
@@ -62,7 +61,7 @@
   </div>
 
   <div
-    id="button"
+    class="button"
     @click="generateMandelbrot"
   >
     {{ generateButtonText }}
@@ -229,7 +228,31 @@ export default {
 </script>
 
 <style scoped>
-  #container {
+  canvas {
+    background-color: white;
+    border-radius: 15px;
+  }
+  
+  input {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: var(--accent1);
+    border: none;
+    border-radius: 15px;
+    width: 0px;
+    flex: 1;
+    padding: 5px 12px;
+    margin-left: 10px;
+    text-align: center;
+  }
+
+  img {
+    width: 30px;
+    height: 30px;
+  }
+
+  .container {
     background-color: var(--container);
     display: flex;
     box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
@@ -238,19 +261,7 @@ export default {
     margin-bottom: 15px;
   }
 
-  #sidebar {
-    margin-left: 15px;
-    width: 200px;
-    display: flex;
-    flex-direction: column;
-  }
-
-  #canvas {
-    background-color: white;
-    border-radius: 15px;
-  }
-
-  #button {
+  .button {
     background-color: var(--container);
     padding: 15px;
     border-radius: 15px;
@@ -260,16 +271,12 @@ export default {
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
   }
 
-  #button:hover {
-    border-color: var(--text)
-  }
-
-  #button:active {
+  .button:active {
     transform: translateY(2px);
     box-shadow: 0 2px 1px rgb(0 0 0 / 0.2);
   }
 
-  #button-slim {
+  .button-slim {
     background-color: var(--accent1);
     padding: 7px 15px;
     width: 100%;
@@ -280,11 +287,7 @@ export default {
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
   }
 
-  #button-slim:hover {
-    border-color: var(--text)
-  }
-
-  #button-small {
+  .button-small {
     position: absolute;
     background-color: var(--accent1);
     margin-left: 10px;
@@ -302,13 +305,23 @@ export default {
     justify-content: center;
   }
 
-  #button-small:hover {
+  .button:hover, .button-slim:hover, .button-small:hover {
     border-color: var(--text)
   }
+  
+  .options-item {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    margin-bottom: 10px;
+  }
 
-  #icon {
-    width: 30px;
-    height: 30px;
+  #sidebar {
+    margin-left: 15px;
+    width: 200px;
+    display: flex;
+    flex-direction: column;
   }
 
   #info {
@@ -327,29 +340,7 @@ export default {
     align-items: center;
   }
 
-  #options-item {
-    width: 100%;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-
   #instructions {
     text-align: left;
-  }
-
-  input {
-    font-size: inherit;
-    font-family: inherit;
-    color: inherit;
-    background-color: var(--accent1);
-    border: none;
-    border-radius: 15px;
-    width: 0px;
-    flex: 1;
-    padding: 5px 12px;
-    margin-left: 10px;
-    text-align: center;
   }
 </style>

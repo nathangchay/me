@@ -1,6 +1,6 @@
 <template>
   <router-link
-    id="container"
+    class="container"
     :to="link"
   >
     <div id="title">
@@ -10,7 +10,7 @@
       {{ desc }}
     </div>
     <div id="info">
-      <div id="container-inner">
+      <div class="container-inner">
         <i><b>{{ date }}</b></i>
       </div>
     </div>
@@ -47,7 +47,7 @@ export default {
 
 
 <style scoped>
-  #container {
+  .container {
     text-decoration: none;
     color: var(--text);
     background-color: var(--container);
@@ -62,21 +62,21 @@ export default {
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
   }
 
-  #container:hover {
+  .container:hover {
     border-color: var(--text);
+  }
+
+  .container-inner {
+    color: var(--accent2);
+    margin-top: 5px;
+    transition: color 300ms ease-in-out;
+    text-align: right;
   }
 
   #row {
     display: flex;
     flex-direction: row;
     justify-content: space-around;
-  }
-
-  #container-inner {
-    color: var(--accent2);
-    margin-top: 5px;
-    transition: color 300ms ease-in-out;
-    text-align: right;
   }
 
   #info {

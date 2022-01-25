@@ -1,14 +1,14 @@
 <template>
-  <div id="container">
-    <div id="row">
+  <div class="container">
+    <div class="row">
       <div
-        id="button"
+        class="button"
         @click="changeColor"
       >
         change color scheme
       </div>
       <div
-        id="button-small"
+        class="button-small"
         :style="{ visibility: defaultVisible ? 'visible' : 'hidden'}"
         @click="defaultColor"
       >
@@ -17,7 +17,7 @@
     </div>
     
     <a
-      id="button-info"
+      class="button-info"
       href="http://colormind.io/"
       :style="{ visibility: defaultVisible ? 'visible' : 'hidden'}"
     >
@@ -99,57 +99,53 @@ export default {
 </script>
 
 <style scoped>
-#container {
-  position: absolute;
-  bottom: 30px;
-  left: 30px;
-  display: flex;
-  flex-direction: column-reverse;
-}
+  .container {
+    position: absolute;
+    bottom: 30px;
+    left: 30px;
+    display: flex;
+    flex-direction: column-reverse;
+  }
 
-#row {
-  display: flex;
-  flex-direction: row;
-}
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
 
-#button {
-  background-color: var(--container);
-  padding: 15px;
-  border-radius: 15px;
-  border: solid transparent 2px;
-  cursor: pointer;
-  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
-  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
-}
+  .button {
+    background-color: var(--container);
+    padding: 15px;
+    border-radius: 15px;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  }
 
-#button:hover {
-  border-color: var(--text)
-}
+  .button-small {
+    visibility: hidden;
+    align-self: center;
+    background-color: var(--container);
+    padding: 10px;
+    margin-left: 15px;
+    border-radius: 15px;
+    font-size: 9pt;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 2px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  }
 
-#button-small {
-  visibility: hidden;
-  align-self: center;
-  background-color: var(--container);
-  padding: 10px;
-  margin-left: 15px;
-  border-radius: 15px;
-  font-size: 9pt;
-  border: solid transparent 2px;
-  cursor: pointer;
-  box-shadow: 0 2px 1px rgb(0 0 0 / 0.2);
-  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
-}
+  .button:hover, .button-small:hover {
+    border-color: var(--text)
+  }
 
-#button-small:hover {
-  border-color: var(--text)
-}
-
-#button-info {
-  margin-bottom: 10px;
-  font-size: 8pt;
-  text-decoration: none;
-  color: var(--text);
-  border-radius: 15px;
-  opacity: 0.5;
-}
+  .button-info {
+    margin-bottom: 10px;
+    font-size: 8pt;
+    text-decoration: none;
+    color: var(--text);
+    border-radius: 15px;
+    opacity: 0.5;
+  }
 </style>

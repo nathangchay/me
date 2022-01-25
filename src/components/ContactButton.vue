@@ -1,6 +1,6 @@
 <template>
   <a
-    id="button"
+    class="button"
     :href="link"
   >
     {{ text }}
@@ -24,7 +24,7 @@ export default {
 </script>
 
 <style scoped>
-  #button {
+  .button {
     width: 100px;
     text-decoration: none;
     color: var(--text);
@@ -38,7 +38,7 @@ export default {
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
   }
 
-  #button:hover {
+  .button:hover {
   border-color: var(--text)
 }
 </style>

@@ -3,7 +3,7 @@
     i can be easily reached via e-mail:
   </div>
   <br>
-  <div id="container">
+  <div class="container">
     <HiddenContainer text="nathangchay@gmail.com" />
   </div>
   <br>
@@ -11,7 +11,7 @@
     you can also find me on:
   </div>
   <br>
-  <div id="container">
+  <div class="container">
     <ContactButton
       text="github"
       link="https://github.com/nathangchay"
@@ -37,8 +37,8 @@ export default {
 </script>
 
 <style>
- #container {
-   display: flex;
-   flex-direction: row;
- }
+  .container {
+    display: flex;
+    flex-direction: row;
+  }
 </style>

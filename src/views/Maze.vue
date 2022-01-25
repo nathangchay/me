@@ -5,32 +5,32 @@
 
   <div id="buttons">
     <div
-      id="algo-button"
+      class="algo-button"
       @click="generateDFS"
     >
       depth-first search
     </div>
     <div
-      id="algo-button"
+      class="algo-button"
       @click="generateKruskal"
     >
       kruskal's
     </div>
     <div
-      id="algo-button"
+      class="algo-button"
       @click="generatePrim"
     >
       prim's
     </div>
     <div
-      id="algo-button"
+      class="algo-button"
       @click="generateAldousBroder"
     >
       aldous-broder
     </div>
     <!--
     <div
-      id="algo-button"
+      class="algo-button"
       @click="generateWilson"
     >
       wilson's
@@ -40,22 +40,22 @@
 
   <div id="outer-container">
     <div id="options-container">
-      <div id="option">
+      <div class="option">
         <b>options</b>
       </div>
-      <div id="option">
+      <div class="option">
         maze size: <input v-model="rows">x<input v-model="cols">
       </div>
-      <div id="option">
+      <div class="option">
         tile size: <input v-model="tileSize">px
       </div>
-      <div id="options">
+      <div class="option">
         animation delay: <input v-model="animDelay">ms
       </div>
-      <div id="option">
+      <div class="option">
         animation:
         <div
-          id="option-button"
+          class="option-button"
           @click="() => { animate = !animate }"
         >
           {{ animate ? "on" : "off" }}
@@ -66,12 +66,11 @@
     <div id="grid">
       <div
         v-for="row in maze"
-        id="row"
         :key="row.id"
+        class="row"
       >
         <div
           v-for="tile in row" 
-          id="tile"
           :key="tile.id"
           :style="{
             'background-color': tile.c == 1 ? 'red' : 'white',
@@ -82,6 +81,7 @@
             'border-top': tile.u == 1 ? 'solid black 2px' : '',
             'border-bottom': tile.d == 1 ? 'solid black 2px' : '',
           }"
+          class="tile"
         />
       </div>
     </div>
@@ -564,109 +564,108 @@
 
 
 <style scoped>
-#row {
-  display: flex;
-  flex-direction: row;
-}
+  input {
+    font-size: inherit;
+    font-family: inherit;
+    color: inherit;
+    background-color: var(--accent1);
+    border: none;
+    border-radius: 15px;
+    width: 0px;
+    flex: 1;
+    padding: 5px 12px;
+    text-align: center;
+    width: 30px;
+    margin-left: 5px;
+    margin-right: 5px;
+  }
 
-#grid {
-  border: solid 2px black;
-}
+  .row {
+    display: flex;
+    flex-direction: row;
+  }
 
-#tile {
-  background-color: white;
-  width: 50px;
-  height: 50px;
-  border: solid 2px white;
-}
+  .tile {
+    background-color: white;
+    width: 50px;
+    height: 50px;
+    border: solid 2px white;
+  }
 
-#buttons {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
+  .option {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 
-#outer-container {
-  display: flex;
-  flex-direction: row;
-  margin-top: 20px;
-  align-items: flex-start;
-}
+  .algo-button {
+    background-color: var(--container);
+    padding: 15px;
+    margin: 10px 5px;
+    border-radius: 15px;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  }
 
-#options-container {
-  background-color: var(--container);
-  padding: 10px 20px;
-  border-radius: 15px;
-  display: flex;
-  align-items: flex-start;
-  flex-direction: column;
-  margin-bottom: 20px;
-  margin-right: 30px;
-  justify-content: flex-start;
-  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
-}
+  .option-button {
+    background-color: var(--accent1);
+    padding: 5px 10px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 15px;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  }
 
-#option {
-  display: flex;
-  align-items: center;
-  flex-direction: row;
-}
+  .algo-button:hover, .option-button:hover {
+    border-color: var(--text)
+  }
 
-#algo-button {
-  background-color: var(--container);
-  padding: 15px;
-  margin: 10px 5px;
-  border-radius: 15px;
-  border: solid transparent 2px;
-  cursor: pointer;
-  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
-  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
-}
+  .button-small {
+    background-color: var(--container);
+    padding: 10px ;
+    margin: 10px;
+    border-radius: 15px;
+    border: solid transparent 2px;
+    cursor: pointer;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+    transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+    font-size: 8pt;
+    text-align: center;
+  }
 
-#algo-button:hover {
-  border-color: var(--text)
-}
+  #grid {
+    border: solid 2px black;
+  }
 
-#option-button {
-  background-color: var(--accent1);
-  padding: 5px 10px;
-  margin: 5px;
-  border-radius: 15px;
-  border: solid transparent 2px;
-  cursor: pointer;
-  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
-  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
-}
+  #buttons {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
 
-#option-button:hover {
-  border-color: var(--text)
-}
+  #outer-container {
+    display: flex;
+    flex-direction: row;
+    margin-top: 20px;
+    align-items: flex-start;
+  }
 
-#button-small {
-  background-color: var(--container);
-  padding: 10px ;
-  margin: 10px;
-  border-radius: 15px;
-  border: solid transparent 2px;
-  cursor: pointer;
-  box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
-  transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
-  font-size: 8pt;
-  text-align: center;
-}
-
-input {
-  font-size: inherit;
-  font-family: inherit;
-  color: inherit;
-  background-color: var(--accent1);
-  border: none;
-  border-radius: 15px;
-  width: 0px;
-  flex: 1;
-  padding: 5px 12px;
-  margin: 5px;
-  text-align: center;
-  width: 30px;
-}
+  #options-container {
+    background-color: var(--container);
+    padding: 15px 20px;
+    border-radius: 15px;
+    display: flex;
+    align-items: flex-start;
+    flex-direction: column;
+    margin-right: 30px;
+    justify-content: flex-start;
+    box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+  }
 </style>

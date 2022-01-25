@@ -1,7 +1,7 @@
 <template>
   <div>
     <h1>featured projects</h1>
-    <div id="row">
+    <div class="row">
       <FeaturedProjectTile
         title="maze"
         desc="procedurally generated mazes"
@@ -17,7 +17,7 @@
     </div>
     <!--
     <h2>other projects</h2>
-    <div id="row">
+    <div class="row">
       <ProjectTile
         title="project1"
         desc=" this is the description of the project. i made this because i was really bored. it's alright i guess. "
@@ -55,9 +55,9 @@ export default {
 </script>
 
 <style scoped>
-#row {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-}
+  .row {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+  }
 </style>

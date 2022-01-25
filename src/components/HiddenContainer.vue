@@ -1,6 +1,6 @@
 <template>
   <div
-    id="button"
+    class="button"
     @click="reveal"
   >
     {{ revealed ? text : "reveal" }}
@@ -28,7 +28,7 @@ export default {
 </script>
 
 <style scoped>
-  #button {
+  .button {
     text-decoration: none;
     color: var(--text);
     background-color: var(--container);
@@ -41,7 +41,7 @@ export default {
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
   }
 
-  #button:hover {
+  .button:hover {
   border-color: var(--text)
 }
 </style>
