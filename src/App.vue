@@ -11,8 +11,6 @@
     </router-link>
   </div>
   <router-view />
-
-  <ColorButton />
 </template>
 
 <script>
@@ -20,9 +18,6 @@ import ColorButton from './components/ColorButton.vue';
 
 export default {
   name: 'App',
-  components: {
-    ColorButton,
-  }
 }
 </script>
 
