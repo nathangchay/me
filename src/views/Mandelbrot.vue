@@ -74,15 +74,27 @@ export default {
   data() {
     return {
       generateButtonText: "re-generate",
+
+      // Width and height of canvas where mandelbrot is drawn
       canvasWidth: 550,
       canvasHeight: 500,
+
+      // Maximum iterations for the mandelbrot drawing algorithm
       maxIter: 80,
+
+      // Multipler amount to zoom in (constrict bounds) when user clicks the canvas 
       zoomFactor: 1.5,
+
+      // Current zoom level
       zoomLevel: 1,
+
+      // Complex number bounds of the drawing
       boundLeft: -2.0,
       boundRight: 0.47,
       boundDown: -1.12,
       boundUp: 1.12,
+
+      // Color gradient to use for drawing
       gradient: [
         [66, 30, 15],
         [25, 7, 26],
@@ -104,9 +116,13 @@ export default {
     }
   },
   mounted() {
+    // Generate initial mandelbrot on page load
     this.generateMandelbrot();
   },
   methods: {
+    /*
+      Zooms into the mandelbrot based on where on the canvas the user clicks
+    */
     onZoomIn(event) {
       const zoomFactor = this.zoomFactor;
 
@@ -120,19 +136,23 @@ export default {
 
       let canvas = document.getElementById("canvas");
 
+      // Calculating mouse position
       let canvasLeft = canvas.offsetLeft + canvas.clientLeft;
       let canvasTop = canvas.offsetTop + canvas.clientTop;
       let mouseX = event.pageX - canvasLeft;
-      let mouseY = event.pageY - canvasTop
+      let mouseY = event.pageY - canvasTop;
 
+      // Calculating new dimensions (in terms of complex numbers) by applying zoom factor
       let oldWidth = Math.abs(boundRight - boundLeft);
-      let oldHeight = Math.abs(boundDown - boundUp)
+      let oldHeight = Math.abs(boundDown - boundUp);
       let newWidth = oldWidth / zoomFactor;
       let newHeight = oldHeight / zoomFactor;
 
+      // Calculating relative mouse position (in terms of complex numbers)
       let mouseXScaled = ((mouseX / (pixelWidth - 1)) * oldWidth) + boundLeft;
       let mouseYScaled = ((mouseY / (pixelHeight - 1)) * oldHeight) + boundDown;
 
+      // Calculating new complex number bounds
       this.boundLeft = mouseXScaled - (newWidth / 2);
       this.boundRight = mouseXScaled + (newWidth / 2);
       this.boundDown = mouseYScaled - (newHeight / 2);
@@ -143,6 +163,9 @@ export default {
       this.generateMandelbrot();
     },
 
+    /*
+      Zooms out of the mandelbrot in the center of the drawing
+    */
     onZoomOut() {
       const zoomFactor = this.zoomFactor;
 
@@ -151,11 +174,13 @@ export default {
       const boundDown = this.boundDown;
       const boundUp = this.boundUp;
 
+      // Calculating new dimensions (in terms of complex numbers) by applying zoom factor
       let oldWidth = Math.abs(boundRight - boundLeft);
       let oldHeight = Math.abs(boundDown - boundUp);
       let newWidth = oldWidth * zoomFactor;
       let newHeight = oldHeight * zoomFactor;
 
+      // Calculating new complex number bounds
       this.boundLeft = boundLeft - ((newWidth - oldWidth) / 2);
       this.boundRight = boundRight + ((newWidth - oldWidth) / 2);
       this.boundDown = boundDown - ((newHeight - oldHeight) / 2);
@@ -166,6 +191,10 @@ export default {
       this.generateMandelbrot();
     },
 
+    /*
+      Draws the mandelbrot image given 4 complex number bounds (stored in the data of this component)
+      Generation algorithm and coloring algorithm both adapted from algorithms at https://en.wikipedia.org/wiki/Plotting_algorithms_for_the_Mandelbrot_set
+    */
     generateMandelbrot() {
       const width = this.canvasWidth;
       const height = this.canvasHeight;
@@ -182,20 +211,23 @@ export default {
       let canvas = document.getElementById("canvas");
       let canvasContext = canvas.getContext("2d");
       
-      let xScaled, yScaled, x, y, iter, temp, color;
+      let xScaled, yScaled, x, x2, y, y2, w, iter, color;
 
       for (let xPixel = 0; xPixel < width; xPixel++) {
         for (let yPixel = 0; yPixel < height; yPixel++) {
           xScaled = ((xPixel / (width - 1)) * (boundRight - boundLeft)) + boundLeft;
           yScaled = ((yPixel / (height - 1)) * (boundUp - boundDown)) + boundDown;
-          x = 0;
-          y = 0;
+          x = 0, x2 = 0;
+          y = 0, y2 = 0;
+          w = 0;
           iter = 0;
 
           while (x * x + y * y <= 4 && iter < maxIter) {
-            temp = x * x - y * y + xScaled;
-            y = 2 * x * y + yScaled;
-            x = temp;
+            x = x2 - y2 + xScaled;
+            y = w - x2 - y2 + yScaled;
+            x2 = x * x;
+            y2 = y * y;
+            w = (x + y) * (x + y);
 
             iter++;
           }
@@ -213,6 +245,9 @@ export default {
       }
     },
 
+    /*
+      Resets values to their default
+    */
     resetToDefault() {
       this.maxIter = 80;
       this.zoomFactor = 1.5;
