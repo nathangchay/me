@@ -43,7 +43,7 @@
 
 <script>
 import FeaturedProjectTile from '../components/FeaturedProjectTile.vue';
-import ProjectTile from '../components/ProjectTile.vue';
+// import ProjectTile from '../components/ProjectTile.vue';
 
 export default {
   name: 'Projects',
