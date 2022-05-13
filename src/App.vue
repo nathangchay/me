@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ColorButton from './components/ColorButton.vue';
+// import ColorButton from './components/ColorButton.vue';
 
 export default {
   name: 'App',
