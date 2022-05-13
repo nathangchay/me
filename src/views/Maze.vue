@@ -3,6 +3,11 @@
     maze generator
   </h1>
 
+  <div id="instructions">
+    click an algorithm button to start generating a maze using that algorithm! <br>
+    you cannot switch algorithms while one is running - to skip to the end of an animation, toggle it off in the options
+  </div>
+
   <div id="buttons">
     <div
       class="algo-button"
@@ -93,20 +98,48 @@
     name: 'Maze',
     data() {
       return {
+        // Whether a generation animation is running
         running: false,
+
+        // Whether the animate option is selected
         animate: true,
+
+        // Delay (ms) between each frame of animation
         animDelay: 10,
+
+        // Size (px) (each tile will be tileSize x tileSize pixels)
         tileSize: 10,
+
+        // Amount of rows in maze
         rows: 30,
+
+        // Amount of columns in maze
         cols: 30,
+
+        /*
+          2D array of maze tiles
+
+          Each tile is an object with the following properties:
+          u: whether there is a wall above this tile
+          d: whether there is a wall below this tile
+          l: whether there is a wall to the left of this tile
+          r: whether there is a wall to the right of this tile
+          c: whether this tile should be colored (this is used for animation)
+        */
         maze: [],
     }
   },
   methods: {
+    /*
+      Delays the maze animation
+    */
     delay() {
       return new Promise(res => setTimeout(res, this.animDelay));
     },
 
+    /*
+      Resets the maze to default values
+    */
     resetMaze() {
       this.maze = [];
 
@@ -114,43 +147,52 @@
         this.maze.push([]);  
 
         for (let j = 0; j < this.cols; j++) {
-          this.maze[i].push({ u: 1, d: 1, l: 1, r: 1, c: 0 })
+          this.maze[i].push({ u: true, d: true, l: true, r: true, c: false })
         }
       }
     },
 
+    /*
+      Removes a wall between two given tiles in the maze
+    */
     removeWall(a, b) {
       if (a.row == b.row - 1) {
-        this.maze[a.row][a.col].d = 0;
-        this.maze[b.row][b.col].u = 0;
+        this.maze[a.row][a.col].d = false;
+        this.maze[b.row][b.col].u = false;
       } else if (a.row == b.row + 1) {
-        this.maze[a.row][a.col].u = 0;
-        this.maze[b.row][b.col].d = 0;
+        this.maze[a.row][a.col].u = false;
+        this.maze[b.row][b.col].d = false;
       } else if (a.col == b.col - 1) {
-        this.maze[a.row][a.col].r = 0;
-        this.maze[b.row][b.col].l = 0;
+        this.maze[a.row][a.col].r = false;
+        this.maze[b.row][b.col].l = false;
       } else if (a.col == b.col + 1) {
-        this.maze[a.row][a.col].l = 0;
-        this.maze[b.row][b.col].r = 0;
+        this.maze[a.row][a.col].l = false;
+        this.maze[b.row][b.col].r = false;
       }
     },
 
+    /*
+      Adds a wall between two given tiles in the maze
+    */
     addWall(a, b) {
       if (a.row == b.row - 1) {
-        this.maze[a.row][a.col].d = 1;
-        this.maze[b.row][b.col].u = 1;
+        this.maze[a.row][a.col].d = true;
+        this.maze[b.row][b.col].u = true;
       } else if (a.row == b.row + 1) {
-        this.maze[a.row][a.col].u = 1;
-        this.maze[b.row][b.col].d = 1;
+        this.maze[a.row][a.col].u = true;
+        this.maze[b.row][b.col].d = true;
       } else if (a.col == b.col - 1) {
-        this.maze[a.row][a.col].r = 1;
-        this.maze[b.row][b.col].l = 1;
+        this.maze[a.row][a.col].r = true;
+        this.maze[b.row][b.col].l = true;
       } else if (a.col == b.col + 1) {
-        this.maze[a.row][a.col].l = 1;
-        this.maze[b.row][b.col].r = 1;
+        this.maze[a.row][a.col].l = true;
+        this.maze[b.row][b.col].r = true;
       }
     },
 
+    /*
+      Whether a given tile's dimensions are valid (within the boundary of the maze)
+    */
     isValidTile(tile) {
       return (
         tile.row >= 0 &&
@@ -160,6 +202,10 @@
       );
     },
 
+    /*
+      Returns an array of walls surrounding a given tile
+      A wall is represented as an object containing both tiles between which the wall lies
+    */
     getNeighboringWalls(tile) {
       let walls = [];
 
@@ -182,6 +228,9 @@
       return walls;
     },
 
+    /*
+      Generates the maze using a depth-first search algorithm
+    */
     async generateDFS() {
       let stack = [];
       let visited = [];
@@ -213,7 +262,7 @@
 
       while (stack.length > 0) {
         cur = stack.pop();
-        this.maze[cur.row][cur.col].c = 1;
+        this.maze[cur.row][cur.col].c = true;
 
         if (cur.row == undefined) {
           break;
@@ -248,12 +297,16 @@
           await this.delay();
         }
         
-        this.maze[cur.row][cur.col].c = 0;
+        this.maze[cur.row][cur.col].c = false;
       }
 
       this.running = false;
     },
 
+    /*
+      Generates the maze using Kruskal's algorithm
+      Adapted from pseudocode at https://en.wikipedia.org/wiki/Kruskal%27s_algorithm
+    */
     async generateKruskal() {
       let walls = [];
       let sets = [];
@@ -284,8 +337,8 @@
         curInd = Math.floor(Math.random() * walls.length);
         cur = walls[curInd];
 
-        this.maze[cur.a.row][cur.a.col].c = 1;
-        this.maze[cur.b.row][cur.b.col].c = 1;
+        this.maze[cur.a.row][cur.a.col].c = true;
+        this.maze[cur.b.row][cur.b.col].c = true;
 
         aSet = -1;
         bSet = -1;
@@ -316,13 +369,17 @@
           await this.delay();
         }
 
-        this.maze[cur.a.row][cur.a.col].c = 0;
-        this.maze[cur.b.row][cur.b.col].c = 0;
+        this.maze[cur.a.row][cur.a.col].c = false;
+        this.maze[cur.b.row][cur.b.col].c = false;
       }
 
       this.running = false;
     },
 
+    /*
+      Generates a maze using Prim's algorithm
+      Adapted from pseudocode at https://en.wikipedia.org/wiki/Prim%27s_algorithm
+    */
     async generatePrim() {
       let curTile = { row: 0, col: 0 };
       let curWall, curWallInd;
@@ -353,8 +410,8 @@
         curWallInd = Math.floor(Math.random() * walls.length);
         curWall = walls[curWallInd];
 
-        this.maze[curWall.a.row][curWall.a.col].c = 1;
-        this.maze[curWall.b.row][curWall.b.col].c = 1;
+        this.maze[curWall.a.row][curWall.a.col].c = true;
+        this.maze[curWall.b.row][curWall.b.col].c = true;
 
         if (
           visited[curWall.a.row][curWall.a.col] && !visited[curWall.b.row][curWall.b.col] ||
@@ -378,14 +435,16 @@
           await this.delay();
         }
 
-        this.maze[curWall.a.row][curWall.a.col].c = 0;
-        this.maze[curWall.b.row][curWall.b.col].c = 0;
+        this.maze[curWall.a.row][curWall.a.col].c = false;
+        this.maze[curWall.b.row][curWall.b.col].c = false;
       }
 
       this.running = false;
     },
 
     /*
+    I couldn't get this one to work properly :-(
+
     async generateWilson() {
       let visited = [];
       let path = [];
@@ -492,6 +551,10 @@
     }
     */
     
+    /*
+      Generates the maze using the Aldous-Broder algorithm
+      Adapted from pseudocode at https://en.wikipedia.org/wiki/Maze_generation_algorithm
+    */
     async generateAldousBroder() {
       let visited = [];
       let visitedCount = 0;
@@ -523,7 +586,7 @@
       visitedCount++;
 
       while (visitedCount < this.rows * this.cols) {
-        this.maze[cur.row][cur.col].c = 1;
+        this.maze[cur.row][cur.col].c = true;
 
         neighbors = [];
 
@@ -552,7 +615,7 @@
           await this.delay();
         }
 
-        this.maze[cur.row][cur.col].c = 0;
+        this.maze[cur.row][cur.col].c = false;
         cur = selected;
       }
 
@@ -667,5 +730,9 @@
     margin-right: 30px;
     justify-content: flex-start;
     box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
+  }
+
+  #instructions {
+    margin-bottom: 15px;
   }
 </style>
