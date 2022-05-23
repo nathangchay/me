@@ -1,6 +1,6 @@
 <template>
   <div
-    class="button"
+    :class="{ button: !revealed, container: revealed }"
     @click="reveal"
   >
     {{ revealed ? text : "reveal" }}
@@ -39,6 +39,15 @@ export default {
     cursor: pointer;
     box-shadow: 0 3px 1px rgb(0 0 0 / 0.2);
     transition: border-color 200ms ease-in-out, background-color 300ms ease-in-out;
+  }
+
+  .container {
+    color: var(--text);
+    background-color: var(--container-dark);
+    padding: 7px 15px;
+    margin: 5px;
+    border-radius: 15px;
+    border: solid transparent 2px;
   }
 
   .button:hover {
