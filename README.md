@@ -1,6 +1,6 @@
 # Me
 
-A developer portfolio showcasing some of my web-based projects.
+A developer portfolio showcasing some small web-based projects.
 
 Built with Vue and auto-deployed to Github Pages.
 
